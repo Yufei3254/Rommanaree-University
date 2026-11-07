@@ -33,6 +33,106 @@
           <span class="item">กิจกรรมเปิดบ้าน MRN Open House</span>
       </marquee>
     </section>
+    
+
+<section class="university-section" aria-labelledby="news-title">
+
+  <div class="news-heading">
+    <div class="news-heading-text">
+      <span class="eyebrow">ROMMANAREE UNIVERSITY</span>
+      <h2 id="news-title">News & Activities</h2>
+      <p>ข่าวสาร กิจกรรม และเรื่องราวจากร่มนารี</p>
+    </div>
+
+    <div class="slider-controls" aria-label="ควบคุมข่าวสาร">
+      <button type="button" id="prevBtn" aria-label="ภาพก่อนหน้า">←</button>
+      <button type="button" id="nextBtn" aria-label="ภาพถัดไป">→</button>
+    </div>
+  </div>
+
+  <div class="carousel-wrapper" id="carouselViewport" tabindex="0" aria-label="เลื่อนดูข่าวสารและกิจกรรม">
+    <div class="carousel-track" id="track" aria-live="polite">
+
+      <article class="news-card">
+        <a href="about.html">
+          <div class="news-image">
+            <img src="assets/ร่มนารี/IMG_0321.PNG"
+                 alt="มหาวิทยาลัยร่มนารี">
+            <span class="image-number">01</span>
+          </div>
+        </a>
+        <div class="card-info">
+          <span class="news-category">UNIVERSITY NEWS</span>
+          <h3>เปิดประตูสู่โลกแห่งการเรียนรู้</h3>
+          <p>ค้นพบประสบการณ์ใหม่และโอกาสที่ไร้ขีดจำกัด ณ มหาวิทยาลัยร่มนารี</p>
+          <a class="read-more" href="about.html">อ่านเพิ่มเติม <span>↗</span></a>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <a href="activity.html">
+          <div class="news-image">
+            <img src="assets/ร่มนารี/IMG_9771.PNG"
+                 alt="กิจกรรมมหาวิทยาลัย">
+            <span class="image-number">02</span>
+          </div>
+        </a>
+        <div class="card-info">
+          <span class="news-category">CAMPUS LIFE</span>
+          <h3>กิจกรรมภายในมหาวิทยาลัย</h3>
+          <p>ร่วมสัมผัสบรรยากาศและประสบการณ์ชีวิตในรั้วมหาวิทยาลัย</p>
+          <a class="read-more" href="activity.html">อ่านเพิ่มเติม <span>↗</span></a>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <a href="faculty.html">
+          <div class="news-image">
+            <img src="assets/ร่มนารี/คณะที่เปิดสอน.png"
+                 alt="คณะที่เปิดสอน">
+            <span class="image-number">03</span>
+          </div>
+        </a>
+        <div class="card-info">
+          <span class="news-category">ACADEMIC</span>
+          <h3>คณะและสาขาที่เปิดสอน</h3>
+          <p>ค้นหาเส้นทางการศึกษาและหลักสูตรที่เหมาะสมกับคุณ</p>
+          <a class="read-more" href="faculty.html">อ่านเพิ่มเติม <span>↗</span></a>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <a href="contact.html">
+          <div class="news-image">
+            <img src="assets/ร่มนารี/IMG_9773.PNG"
+                 alt="ข่าวประชาสัมพันธ์">
+            <span class="image-number">04</span>
+          </div>
+        </a>
+        <div class="card-info">
+          <span class="news-category">ANNOUNCEMENT</span>
+          <h3>ข่าวประชาสัมพันธ์</h3>
+          <p>ติดตามข่าวสาร ประกาศ และข้อมูลสำคัญจากมหาวิทยาลัย</p>
+          <a class="read-more" href="contact.html">อ่านเพิ่มเติม <span>↗</span></a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="slider-footer">
+    <span id="slideCount" aria-live="polite">01 — 04</span>
+
+    <div class="progress">
+      <div id="progressBar"></div>
+    </div>
+
+    <a href="activity.html" class="view-all">ดูข่าวและกิจกรรมทั้งหมด <span aria-hidden="true">↗</span></a>
+  </div>
+
+</section>
+
+
     <section class="us">
             <div class="anniv-text">
             <h1 class="about-uni">
@@ -48,24 +148,46 @@
       <img src="assets/ร่มนารี/IMG_9773.PNG" alt="ภาพแนะนำมหาวิทยาลัยร่มนารี">
     </figure>
 
-    <section aria-label="ข้อมูลสำหรับนักศึกษา">
-      <div class="container">
-        <article class="box">
-          <h4>Rules</h4>
-          <div class="box-image" role="img" aria-label="พื้นที่สำหรับใส่รูป">
-            <span>image</span>
+    <section class="campus-life" aria-labelledby="campus-life-title">
+      <div class="campus-life__inner">
+        <div class="campus-life__heading">
+          <div>
+            <p class="campus-life__eyebrow">DISCOVER ROMMANAREE</p>
+            <h2 id="campus-life-title">ชีวิตในร่มนารี</h2>
           </div>
-          <p>กฎต่าง ๆ ภายในมหาวิทยาลัย</p>
-          <a class="morebtn" href="rule.html">เพิ่มเติม <span aria-hidden="true">→</span></a>
-        </article>
-        <article class="box">
-          <h4>Facuty</h4>
-          <div class="box-image" role="img" aria-label="พื้นที่สำหรับใส่รูป">
-            <span>imag</span>
-          </div>
-          <p>คณะและสาขาต่างๆ</p>
-          <a class="morebtn" href="faculty.html">เพิ่มเติม <span aria-hidden="true">→</span></a>
-        </article>
+        </div>
+        <div class="campus-grid">
+          <a class="campus-card campus-card--activities" href="activity.html">
+            <img src="assets/ร่มนารี/กิจกรรม.JPG" alt="" loading="lazy">
+            <span class="campus-card__content"><span class="campus-card__eyebrow">CAMPUS LIFE</span><span class="campus-card__title">กิจกรรมและชีวิตในรั้วมหาวิทยาลัย</span></span>
+            <span class="campus-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="campus-card campus-card--faculties" href="faculty.html">
+            <img src="assets/ร่มนารี/คณะ.JPG" alt="" loading="lazy">
+            <span class="campus-card__content"><span class="campus-card__eyebrow">ACADEMIC</span><span class="campus-card__title">คณะและสาขาวิชา</span></span>
+            <span class="campus-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="campus-card campus-card--clubs" href="club.html">
+            <img src="assets/ร่มนารี/" alt="" loading="lazy">
+            <span class="campus-card__content"><span class="campus-card__eyebrow">STUDENT COMMUNITY</span><span class="campus-card__title">ชมรมและเพื่อนใหม่</span></span>
+            <span class="campus-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="campus-card campus-card--guide" href="https://www.facebook.com/share/p/19taEZf9D1/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/ร่มนารี/คู่มือ.JPG" alt="" loading="lazy">
+            <span class="campus-card__content"><span class="campus-card__eyebrow">TAG ROLEPLAY GUIDE</span><span class="campus-card__title">คู่มือการเล่นแท็ก</span></span>
+            <span class="campus-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="campus-card campus-card--rules" href="rule.html">
+            <img src="assets/ร่มนารี/กฏ.JPG" alt="" loading="lazy">
+            <span class="campus-card__content"><span class="campus-card__eyebrow">CAMPUS COMMUNITY</span><span class="campus-card__title">กฎและแนวปฏิบัติ</span></span>
+            <span class="campus-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="campus-card campus-card--about" href="about.html">
+            <img src="assets/ร่มนารี/" alt="" loading="lazy">
+            <span class="campus-card__content"><span class="campus-card__eyebrow">OUR UNIVERSITY</span><span class="campus-card__title">รู้จักมหาวิทยาลัยร่มนารี</span></span>
+            <span class="campus-card__arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </section>
 
