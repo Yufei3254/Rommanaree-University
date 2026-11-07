@@ -505,3 +505,17 @@ footer .button {
     text-align: center;
   }
 }
+
+/* จอกว้าง (≥ 768px): เมนูข้อความปกติ ไม่มีขีดสามขีด */
+@media (min-width: 768px) {
+  .site-header .menu-toggle,
+  .site-header .mobile-menu { display: none !important; }
+
+  .site-header .hidden-menu { display: flex; }
+}
+
+/* จอแคบ (< 768px): ซ่อนเมนูข้อความกับปุ่มสมัครบนแถบ ใช้ขีดสามขีดแทน */
+@media (max-width: 767.98px) {
+  .site-header .hidden-menu,
+  .site-header .apply-button { display: none !important; }
+}
