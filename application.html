@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rommanaree University | เร็ว ๆ นี้</title>
+  <title>Rommanaree University | แบบฟอร์ม</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="script.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@600;700&family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    html, body { height: 100%; margin: 0; }
+    html, body { min-height: 100%; margin: 0; }
     body {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      min-height: 100vh;
       font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
     }
     .font-heading { font-family: 'Noto Serif Thai', serif; }
@@ -23,8 +23,7 @@
       position: relative;
       display: grid;
       flex: 1;
-      min-height: 0;
-      padding: 24px;
+      padding: clamp(40px, 7vw, 76px) 24px;
       place-items: center;
       overflow: hidden;
       color: #173332;
@@ -46,56 +45,106 @@
     .cs__inner {
       position: relative;
       z-index: 1;
-      max-width: 560px;
+      width: min(100%, 960px);
       text-align: center;
     }
 
     .cs__eyebrow {
-      margin: 0 0 18px;
+      margin: 0 0 12px;
       color: #165d5a;
       font-size: .85rem;
-      font-weight: 500;
-      letter-spacing: .28em;
+      font-weight: 700;
+      letter-spacing: .18em;
     }
 
     .cs__title {
-      margin: 0;
+      margin: 0 0 12px;
       color: #123f3c;
       font-family: 'Noto Serif Thai', serif;
-      font-size: clamp(3rem, 11vw, 5.5rem);
-      font-weight: 600;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
       line-height: 1.3;
     }
 
-    .cs__rule {
-      display: block;
-      width: 56px;
-      height: 2px;
-      margin: 26px auto;
-      background: #165d5a;
-    }
-
     .cs__text {
-      margin: 0 0 34px;
+      margin: 0 auto 30px;
       color: #647674;
       font-size: 1.05rem;
       line-height: 1.9;
+      max-width: 620px;
     }
 
-    .cs__link {
-      display: inline-block;
-      padding: 11px 28px;
-      color: #165d5a;
-      border: 1px solid #165d5a;
+    .cs__forms {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      text-align: left;
+    }
+
+    .cs__form {
+      display: flex;
+      min-height: 160px;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 22px;
+      background: #fff;
+      border: 1px solid #dce8e3;
+      border-radius: 18px;
+      box-shadow: 0 8px 22px rgba(18, 63, 60, .06);
+    }
+
+    .cs__form h2 {
+      margin: 0 0 8px;
+      color: #123f3c;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .cs__form p {
+      margin: 0 0 18px;
+      color: #647674;
+      line-height: 1.7;
+    }
+
+    .cs__form-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      padding: 10px 18px;
+      color: #fff;
+      background: #165d5a;
       border-radius: 999px;
+      font-weight: 700;
       text-decoration: none;
-      transition: background-color .2s ease, color .2s ease;
+      transition: background-color .2s ease, transform .2s ease;
     }
-    .cs__link:hover { color: #fff; background: #165d5a; }
 
-    @media (max-height: 560px) {
-      .cs__rule { margin: 16px auto; }
-      .cs__text { margin-bottom: 20px; }
+    .cs__form-link[aria-disabled="true"] {
+      color: #647674;
+      background: #e8efec;
+      cursor: default;
+    }
+
+    .cs__form-link:not([aria-disabled="true"]):hover {
+      background: #104744;
+      transform: translateY(-2px);
+    }
+
+    .cs__back {
+      display: inline-block;
+      margin-top: 28px;
+      color: #165d5a;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    @media (max-width: 600px) {
+      .cs { padding: 36px 18px; }
+      .cs__forms { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+      .cs__form { min-height: 0; padding: 18px; }
     }
   </style>
 </head>
@@ -142,14 +191,29 @@
 
   <main class="cs">
     <div class="cs__inner">
-      <p class="cs__eyebrow">ROMNAREE UNIVERSITY</p>
-      <h1 class="cs__title">เร็ว ๆ นี้</h1>
-      <span class="cs__rule" aria-hidden="true"></span>
-      <p class="cs__text">
-        เรากำลังเตรียมเนื้อหาหน้านี้อยู่<br>
-        ขอบคุณที่รอ แล้วพบกันเร็ว ๆ นี้
-      </p>
-      <a href="index.html" class="cs__link">กลับหน้าหลัก</a>
+      <p class="cs__eyebrow">ROMMANAREE UNIVERSITY</p>
+      <h1 class="cs__title">แบบฟอร์มข้อมูลตัวละคร</h1>
+      <p class="cs__text"></p>
+
+      <div class="cs__forms">
+        <article class="cs__form">
+          <h2>แบบฟอร์มนักศึกษา</h2>
+          <a class="cs__form-link" href="https://docs.google.com/document/d/1XdDwTUH016pI3XCycWkDrha8Ym6ZQqXFKqMB4qd6eJQ/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer">เปิดแบบฟอร์ม <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="cs__form">
+          <h2>แบบฟอร์มอาจารย์</h2>
+          <a class="cs__form-link" href="https://docs.google.com/document/d/1hUlRVFNvC3V3PK00RuM0x_cr4oCmZvDl3u0i1qN61oY/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer">เปิดแบบฟอร์ม <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="cs__form">
+          <h2>แบบฟอร์ม NPC</h2>
+          <a class="cs__form-link" href="https://docs.google.com/document/d/13EEg5Wvz8Ud7qoGCpTaUch6fFvlp4mdJUdZ0kqUwX3A/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer">เปิดแบบฟอร์ม <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="cs__form">
+          <h2>ตัวอย่างฟอร์ม</h2>
+          <a class="cs__form-link" href="https://docs.google.com/document/d/11nQB8N8HO0-YFC1eJwOi97vqfeL8zX1W8GWWDFqG08c/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer">ดูตัวอย่าง <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+      <a href="index.html" class="cs__back">กลับหน้าหลัก</a>
     </div>
   </main>
 </body>
