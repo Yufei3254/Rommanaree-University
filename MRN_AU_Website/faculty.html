@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rommanaree University | คณะและสาขา</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; }
+    .font-heading { font-family: 'Noto Serif Thai', serif; }
+
+    :root {
+      --ink: #172b29;
+      --ink-soft: #4d6360;
+      --ink-faint: #7b8d8a;
+      --green: #165d5a;
+      --green-deep: #0e3d3b;
+      --green-wash: #e8f1ee;
+      --paper: #f4f7f6;
+      --line: #d8e2df;
+    }
+
+    .fac-page { padding: clamp(28px, 5vw, 56px) 20px 88px; color: var(--ink); background: var(--paper); }
+    .fac-wrap { width: min(100%, 1120px); margin: 0 auto; }
+
+    /* ---------- หัวหน้า ---------- */
+    .fac-head { max-width: 640px; margin-bottom: clamp(24px, 4vw, 40px); }
+    .fac-head h1 {
+      margin: 0; color: var(--green-deep);
+      font-family: 'Noto Serif Thai', serif; font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3rem); line-height: 1.35;
+    }
+    .fac-head p { margin: 10px 0 0; color: var(--ink-soft); line-height: 1.8; }
+
+    .fac-layout { display: grid; grid-template-columns: minmax(250px, 290px) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+
+    /* ---------- แถบซ้าย ---------- */
+    .fac-sidebar { min-width: 0; position: sticky; top: 16px; }
+
+    .fac-picker {
+      display: none; width: 100%; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 16px; color: var(--ink); background: #fff;
+      border: 1px solid var(--line); border-radius: 6px;
+      font: inherit; text-align: left; cursor: pointer;
+    }
+    .fac-picker__label { display: block; color: var(--ink-faint); font-size: .8rem; line-height: 1.5; }
+    .fac-picker__value {
+      display: block; color: var(--green-deep);
+      font-family: 'Noto Serif Thai', serif; font-size: 1.05rem; font-weight: 700; line-height: 1.5;
+    }
+    .fac-picker__icon { flex: 0 0 auto; width: 20px; height: 20px; color: var(--green); transition: transform .2s ease; }
+    .fac-picker[aria-expanded="true"] .fac-picker__icon { transform: rotate(180deg); }
+    .fac-picker:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    .fac-nav { padding: 20px 18px 10px; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+
+    .fac-search { position: relative; margin-bottom: 4px; }
+    .fac-search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .fac-search input {
+      width: 100%; min-height: 44px; padding: 8px 36px 8px 2px;
+      color: var(--ink); background: transparent;
+      border: 0; border-bottom: 1.5px solid var(--ink-faint); border-radius: 0;
+      font: inherit; transition: border-color .15s ease;
+    }
+    .fac-search input::placeholder { color: var(--ink-faint); }
+    .fac-search input:focus { outline: none; border-bottom-color: var(--green); }
+    .fac-search input::-webkit-search-cancel-button { display: none; }
+    .fac-search__clear {
+      position: absolute; top: 50%; right: 0; width: 32px; height: 32px;
+      color: var(--ink-soft); background: transparent; border: 0; border-radius: 4px;
+      font-size: 1.25rem; line-height: 1; cursor: pointer; transform: translateY(-50%);
+    }
+    .fac-search__clear:hover { color: var(--green); background: var(--green-wash); }
+    .fac-search__clear[hidden] { display: none; }
+
+    .fac-result-count { min-height: 1.5em; margin: 0 0 8px; color: var(--ink-faint); font-size: .85rem; }
+
+    .fac-tabs { display: flex; flex-direction: column; max-height: calc(100vh - 250px); overflow-y: auto; margin-right: -6px; padding-right: 6px; }
+    .fac-tabs[hidden] { display: none; }
+
+    .fac-group { display: flex; flex-direction: column; padding: 14px 0 12px; border-top: 1px solid var(--line); }
+    .fac-group:first-child { border-top: 0; padding-top: 6px; }
+    .fac-group[hidden] { display: none; }
+    .fac-group__title {
+      margin: 0 0 6px; color: var(--green-deep);
+      font-family: 'Noto Serif Thai', serif; font-size: .98rem; font-weight: 700; line-height: 1.5;
+    }
+
+    .fac-tab {
+      display: block; width: 100%; padding: 8px 10px 8px 12px;
+      color: var(--ink-soft); background: transparent;
+      border: 0; border-left: 2px solid var(--line); border-radius: 0;
+      font: inherit; font-size: .95rem; line-height: 1.5; text-align: left; cursor: pointer;
+    }
+    .fac-tab[hidden] { display: none; }
+    .fac-tab:hover { color: var(--ink); background: var(--paper); }
+    .fac-tab[aria-selected="true"] {
+      color: var(--green-deep); background: var(--green-wash);
+      border-left-color: var(--green); font-weight: 600;
+    }
+    .fac-tab:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
+
+    /* ---------- เนื้อหาคณะ ---------- */
+    .fac-panel {
+      min-width: 0; min-height: 380px; overflow: hidden; scroll-margin-top: 12px;
+      background: #fff; border: 1px solid var(--line); border-radius: 6px;
+    }
+    .fac-panel:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+
+    .fac-panel__head {
+      position: relative; overflow: hidden;
+      padding: clamp(26px, 4.5vw, 46px) clamp(20px, 4vw, 44px);
+      color: #fff; background: var(--green-deep);
+    }
+    /* วงกลมเส้นบาง ๆ เป็นลายเดียวกับหน้ากฎระเบียบ */
+    .fac-panel__head::after {
+      position: absolute; right: -70px; bottom: -150px; width: 320px; height: 320px; content: "";
+      border: 1px solid rgba(255, 255, 255, .16); border-radius: 50%;
+      box-shadow: 0 0 0 34px rgba(255, 255, 255, .04), 0 0 0 68px rgba(255, 255, 255, .03);
+      pointer-events: none;
+    }
+    .fac-panel__head > * { position: relative; z-index: 1; }
+    .fac-panel__cat { margin: 0 0 10px; color: #b9e5d4; font-size: .9rem; font-weight: 600; }
+    .fac-panel h2 {
+      margin: 0; color: #fff;
+      font-family: 'Noto Serif Thai', serif; font-weight: 700;
+      font-size: clamp(1.6rem, 3.8vw, 2.4rem); line-height: 1.4;
+    }
+    .fac-panel__en { margin: 4px 0 0; color: rgba(255, 255, 255, .72); font-size: 1rem; font-style: italic; }
+    .fac-panel__program {
+      display: inline-block; margin: 16px 0 0; padding-top: 12px;
+      color: #fff; border-top: 1px solid rgba(255, 255, 255, .28); line-height: 1.7;
+    }
+
+    .fac-panel__body { padding: clamp(22px, 4vw, 40px) clamp(20px, 4vw, 44px) clamp(26px, 4vw, 44px); }
+    .fac-panel__desc { max-width: 62ch; margin: 0; color: var(--ink-soft); line-height: 1.9; white-space: pre-line; }
+    .fac-panel__desc + .fac-panel__desc { margin-top: 12px; }
+    .fac-soon { margin: 0; color: var(--ink-faint); line-height: 1.8; }
+
+    .fac-block { margin-top: 30px; }
+    .fac-block:first-child { margin-top: 0; }
+    .fac-block h3 {
+      margin: 0 0 12px; padding-bottom: 8px; color: var(--ink);
+      border-bottom: 1.5px solid var(--green);
+      font-family: 'Noto Serif Thai', serif; font-size: 1.1rem; font-weight: 700; line-height: 1.5;
+    }
+    .fac-block h3 small { margin-left: 8px; color: var(--ink-faint); font-family: 'Sarabun', sans-serif; font-size: .88rem; font-weight: 400; }
+    .fac-subs { margin: 0; color: var(--ink-soft); line-height: 1.85; }
+
+    .learn-list { margin: 0; padding-left: 1.25em; color: var(--ink-soft); line-height: 1.85; }
+    .learn-list li::marker { color: var(--green); }
+
+    /* สาขาเป็นแถวคั่นด้วยเส้น ไม่ใช่การ์ด */
+    .major-list { margin: 0; padding: 0; list-style: none; }
+    .major-list > li { padding: 16px 12px; border-bottom: 1px solid var(--line); }
+    .major-list > li:last-child { border-bottom: 0; }
+    .major-list > li.is-match { background: var(--green-wash); border-radius: 4px; }
+    .major-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; }
+    .major-name strong { color: var(--ink); font-size: 1.04rem; font-weight: 600; line-height: 1.6; }
+    .major-name span { color: var(--ink-faint); font-size: .9rem; }
+    .major-note { max-width: 62ch; margin: 6px 0 0; color: var(--ink-soft); line-height: 1.8; white-space: pre-line; }
+    .major-extra { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 4px 12px; margin: 10px 0 0; font-size: .92rem; line-height: 1.75; }
+    .major-extra dt { color: var(--green); font-weight: 600; }
+    .major-extra dd { margin: 0; color: var(--ink-soft); }
+    .major-extra ul { margin: 0; padding-left: 1.1em; }
+
+    .fac-empty { padding: 28px; color: var(--ink-soft); line-height: 1.8; }
+    .fac-empty strong { display: block; color: var(--ink); font-size: 1.05rem; }
+
+    /* เล่นแอนิเมชันเฉพาะตอนผู้ใช้กดสลับคณะ */
+    .fac-panel.is-swapping { animation: facSwap .22s ease; }
+    @keyframes facSwap { from { opacity: .3; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .fac-panel.is-swapping { animation: none; } .fac-picker__icon { transition: none; } }
+
+    /* ---------- มือถือ / แท็บเล็ต ---------- */
+    @media (max-width: 860px) {
+      .fac-page { padding: 22px 14px 56px; }
+      .fac-layout { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+      .fac-sidebar { position: static; }
+      .fac-picker { display: flex; }
+      .fac-nav { display: none; margin-top: 8px; padding: 14px 14px 6px; }
+      .fac-sidebar.is-open .fac-nav { display: block; }
+      .fac-tabs { max-height: 50vh; }
+      .fac-tab { padding: 10px 12px; }
+      .fac-panel { min-height: 0; }
+    }
+    @media (max-width: 520px) {
+      .fac-head { margin-bottom: 18px; }
+      .fac-head p { font-size: .95rem; }
+      .fac-panel__head { padding: 22px 18px; }
+      .fac-panel__head::after { width: 220px; height: 220px; right: -60px; bottom: -110px; }
+      .fac-panel__body { padding: 20px 18px 24px; }
+      .major-list > li { padding: 14px 2px; }
+      .major-list > li.is-match { padding-left: 8px; padding-right: 8px; }
+      .major-name { flex-direction: column; gap: 0; }
+      .major-extra { grid-template-columns: minmax(0, 1fr); gap: 0; }
+      .major-extra dd { margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <header class="site-header">
+    <div class="w-full px-4 md:px-6">
+      <div class="flex items-center h-20">
+        <a href="index.html" class="justify-self-start flex items-center gap-3">
+          <img src="assets/ร่มนารี/Logo.PNG" alt="MRN_AU" class="h-12 w-12 object-contain">
+          <span class="font-heading text-lg md:text-xl font-bold leading-normal" style="color: whitesmoke">
+            <span class="block">Romnaree</span>
+            <span class="block ml-3 mt-1">University</span>
+          </span>
+        </a>
+        <nav class="hidden-menu">
+          <details class="nav-dropdown">
+            <summary>เกี่ยวกับเรา</summary>
+            <div class="nav-dropdown__menu">
+              <a href="about.html">ประวัติสถาบัน</a>
+              <a href="contact.html">ติดต่อเรา</a>
+              <a href="rule.html">กฎระเบียบ</a>
+            </div>
+          </details>
+          <details class="nav-dropdown">
+            <summary>การศึกษา</summary>
+            <div class="nav-dropdown__menu">
+              <a href="faculty.html">คณะและสาขา</a>
+            </div>
+          </details>
+          <details class="nav-dropdown">
+            <summary>ชีวิตในร่มนารี</summary>
+            <div class="nav-dropdown__menu">
+              <a href="#">กิจกรรมภายใน</a>
+              <a href="club.html">ชมรม</a>
+              <a href="#">สิ่งอำนวยความสะดวก</a>
+            </div>
+          </details>
+        </nav>
+        <a href="application.html" class="apply-button hidden md:inline-block ml-6 text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors">
+          สมัครเข้าศึกษา
+        </a>
+        <button id="applybtn" type="button" class="menu-toggle md:hidden ml-auto text-blue-950"
+                aria-label="เปิดเมนู" aria-expanded="false" aria-controls="mobileMenu">
+          <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path class="burger-line" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"></path>
+            <path class="burger-line" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16"></path>
+            <path class="burger-line" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobileMenu" class="mobile-menu" aria-label="เมนูมือถือ" hidden>
+      <ul class="mobile-menu__list">
+        <li>
+          <details class="mobile-dropdown">
+            <summary>เกี่ยวกับเรา</summary>
+            <div class="mobile-dropdown__menu">
+              <a href="about.html">ประวัติสถาบัน</a>
+              <a href="contact.html">ติดต่อเรา</a>
+              <a href="rule.html">กฎระเบียบ</a>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details class="mobile-dropdown">
+            <summary>การศึกษา</summary>
+            <div class="mobile-dropdown__menu">
+              <a href="faculty.html">คณะและสาขา</a>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details class="mobile-dropdown">
+            <summary>ชีวิตในร่มนารี</summary>
+            <div class="mobile-dropdown__menu">
+              <a href="#">กิจกรรมภายใน</a>
+              <a href="club.html">ชมรม</a>
+              <a href="#">สิ่งอำนวยความสะดวก</a>
+            </div>
+          </details>
+        </li>
+        <li><a class="mobile-menu__apply" href="application.html">สมัครเข้าศึกษา <span aria-hidden="true">→</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENT ===== -->
+  <main class="fac-page">
+    <div class="fac-wrap">
+      <div class="fac-head">
+        <h1>คณะและสาขา</h1>
+        <p>มหาวิทยาลัยร่มนารีเปิดสอน 18 คณะ เลือกคณะที่สนใจเพื่อดูสาขาวิชา สาขาย่อย และสิ่งที่ต้องเรียน</p>
+      </div>
+
+      <div class="fac-layout">
+        <aside class="fac-sidebar" id="facSidebar" aria-label="ค้นหาและเลือกคณะ">
+          <button class="fac-picker" id="facPicker" type="button" aria-expanded="false" aria-controls="facNav">
+            <span>
+              <span class="fac-picker__label">เลือกคณะ</span>
+              <span class="fac-picker__value" id="facPickerValue"></span>
+            </span>
+            <svg class="fac-picker__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <div class="fac-nav" id="facNav">
+            <div class="fac-search">
+              <label for="facSearch">ค้นหาคณะหรือสาขา</label>
+              <input id="facSearch" type="search" placeholder="ค้นหาคณะ สาขา หรือหมวด" autocomplete="off">
+              <button class="fac-search__clear" id="facSearchClear" type="button" aria-label="ล้างคำค้นหา" hidden>×</button>
+            </div>
+            <p class="fac-result-count" id="facResultCount" aria-live="polite"></p>
+            <div class="fac-tabs" id="facTabs" role="tablist" aria-label="รายชื่อคณะ" aria-orientation="vertical"></div>
+          </div>
+        </aside>
+        <section class="fac-panel" id="facPanel" role="tabpanel" tabindex="0"></section>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /* ==========================================================
+       ข้อมูลคณะ — แก้/เพิ่มตรงนี้ที่เดียว (ทุกช่องเว้นว่างได้)
+
+       ระดับคณะ:
+         id      ชื่อสำหรับลิงก์ เช่น faculty.html#law
+         th, en  ชื่อไทย / อังกฤษ
+         desc    (ไม่บังคับ) คำอธิบายคณะ  ขึ้นบรรทัดใหม่ด้วย \n
+         learn   (ไม่บังคับ) ['เรียนเรื่องที่ 1', 'เรียนเรื่องที่ 2']
+         majors  [ [ไทย, อังกฤษ, {ข้อมูลเสริม}], ... ]
+
+       ระดับสาขา (ช่องที่ 3 เป็นอ็อบเจกต์ ไม่ใส่ก็ได้):
+         { note: 'คำอธิบาย', subs: ['สาขาย่อย'], learn: ['เรียนอะไร'] }
+
+       หมวดหมู่ใหญ่: แก้ที่ CATEGORIES ด้านล่างข้อมูลคณะ
+       ========================================================== */
+    const FACULTIES = [
+      { id: 'architecture', th: 'คณะสถาปัตยกรรมศาสตร์', en: 'Faculty of Architecture',
+        desc: '', learn: [], majors: [
+        ['สถาปัตยกรรม', 'Architecture'],
+        ['สถาปัตยกรรมไทย', 'Thai Architecture'],
+        ['สถาปัตยกรรมภายใน', 'Interior Architecture'],
+        ['การออกแบบอุตสาหกรรม', 'Industrial Design'],
+        ['วางแผนภาคและเมือง', 'Urban and Regional Planning'],
+      ]},
+      { id: 'arts', th: 'คณะอักษรศาสตร์', en: 'Faculty of Arts',
+        desc: '', learn: [], majors: [
+        ['สาขาวิชาอักษรศาสตร์', 'Arts / Humanities'],
+        ['สาขาวิชาภาษาไทย', 'Thai Language'],
+        ['สาขาวิชาภาษาอังกฤษ', 'English Language'],
+        ['สาขาวิชาปรัชญา', 'Philosophy'],
+        ['สาขาวิชาภาษาจีน', 'Chinese Language'],
+        ['สาขาวิชาภาษาญี่ปุ่น', 'Japanese Language'],
+        ['สาขาวิชาภาษาฝรั่งเศส', 'French Language'],
+      ]},
+      { id: 'commerce', th: 'คณะพาณิชยศาสตร์และการบัญชี', en: 'Faculty of Commerce and Accountancy',
+        desc: '', learn: [], majors: [
+        ['สาขาการบริการ พาณิชยการและธุรกิจ', 'Services, Commerce, and Business'],
+        ['การบัญชี', 'Accounting'],
+        ['บริหารธุรกิจ', 'Business Administration'],
+        ['ระบบสารสนเทศ', 'Information Systems'],
+      ]},
+      { id: 'comm-arts', th: 'คณะนิเทศศาสตร์', en: 'Faculty of Communication Arts',
+        desc: '', learn: [], majors: [
+        ['นิเทศศาสตร์', 'Communication Arts'],
+        ['การจัดการสื่อสาร', 'Communication Management'],
+      ]},
+      { id: 'dentistry', th: 'คณะทันตแพทยศาสตร์', en: 'Faculty of Dentistry',
+        desc: '', learn: [], majors: [
+        ['ทันตแพทยศาสตร์', 'Dentistry'],
+      ]},
+      { id: 'economics', th: 'คณะเศรษฐศาสตร์', en: 'Faculty of Economics',
+        desc: '', learn: [], majors: [
+        ['สาขาวิชาเศรษฐศาสตร์', 'Economics'],
+        ['สาขาวิชาเศรษฐศาสตร์ประยุกต์และธุรกิจ', 'Applied and Business Economics'],
+      ]},
+      { id: 'education', th: 'คณะครุศาสตร์', en: 'Faculty of Education',
+        desc: '', learn: [], majors: [
+        ['การประถมศึกษา', 'Primary Education'],
+        ['การศึกษาปฐมวัย', 'Early Childhood Education'],
+        ['ภาษาไทยและภาษาต่างประเทศ', 'Thai and Foreign Languages'],
+        ['ศิลปศึกษา ดนตรีศึกษาและนาฏศิลป์ศึกษา', 'Art Education, Music Education, and Dance Education'],
+        ['การศึกษาบัณฑิต', 'Bachelor of Education'],
+      ]},
+      { id: 'engineering', th: 'คณะวิศวกรรมศาสตร์', en: 'Faculty of Engineering',
+        desc: '', learn: [], majors: [
+        ['วิศวกรรมคอมพิวเตอร์', 'Computer Engineering'],
+        ['วิศวกรรมเคมี', 'Chemical Engineering'],
+        ['วิศวกรรมนิวเคลียร์', 'Nuclear Engineering'],
+        ['วิศวกรรมไฟฟ้า', 'Electrical Engineering'],
+        ['วิศวกรรมโยธา', 'Civil Engineering'],
+        ['วิศวกรรมเครื่องกล', 'Mechanical Engineering'],
+      ]},
+      { id: 'fine-arts', th: 'คณะศิลปกรรมศาสตร์', en: 'Faculty of Fine and Applied Arts',
+        desc: '', learn: [], majors: [
+        ['ทัศนศิลป์', 'Visual Arts'],
+        ['นฤมิตศิลป์', 'Creative Arts'],
+        ['นาฏศิลป์', 'Performing Arts'],
+        ['สาขาวิชาการละครและการแสดง', 'Department of Dramatic Arts'],
+      ]},
+      { id: 'law', th: 'คณะนิติศาสตร์', en: 'Faculty of Law',
+        desc: '', learn: [], majors: [
+        ['นิติศาสตรบัณฑิต', 'Bachelor of Laws'],
+        ['อาชญาวิทยาและงานยุติธรรม', 'Criminology and Justice System'],
+        ['อาชญาวิทยาและนิติวิทยาศาสตร์', 'Criminology and Forensic Science'],
+      ]},
+      { id: 'medicine', th: 'คณะแพทยศาสตร์', en: 'Faculty of Medicine',
+        desc: '', learn: [], majors: [
+        ['แพทยศาสตรบัณฑิต', 'Bachelor of Medicine'],
+      ]},
+      { id: 'pharmacy', th: 'คณะเภสัชศาสตร์', en: 'Faculty of Pharmaceutical Sciences',
+        desc: '', learn: [], majors: [
+        ['เภสัชกรรมอุตสาหการ', 'Industrial Pharmacy'],
+        ['การบริบาลทางเภสัชกรรม', 'Pharmaceutical Care'],
+      ]},
+      { id: 'political-science', th: 'คณะรัฐศาสตร์', en: 'Faculty of Political Science',
+        desc: '', learn: [], majors: [
+        ['การเมืองการปกครอง', 'Political Science'],
+        ['การระหว่างประเทศ', 'International Relations'],
+        ['การบริหารรัฐกิจ', 'Public Administration'],
+        ['การเมืองและการระหว่างประเทศ (ภาคอินเตอร์)', 'BIR'],
+      ]},
+      { id: 'psychology', th: 'คณะจิตวิทยา', en: 'Faculty of Psychology',
+        desc: '', learn: [], majors: [
+        ['จิตวิทยา', 'Psychology'],
+        ['วิทยาศาสตร์จิตวิทยา', 'Psychological Science'],
+      ]},
+      { id: 'archaeology', th: 'คณะโบราณคดี', en: 'Faculty of Archaeology',
+        desc: '', learn: [], majors: [
+        ['โบราณคดี', 'Archaeology'],
+        ['ประวัติศาสตร์ศิลปะ', 'History of Art'],
+        ['มานุษยวิทยา', 'Anthropology'],
+        ['ภาษาไทย', 'Thai Language'],
+        ['ภาษาอังกฤษ', 'English'],
+        ['ภาษาฝรั่งเศส', 'French'],
+        ['ประวัติศาสตร์ท้องถิ่น', 'Local History'],
+      ]},
+      { id: 'veterinary', th: 'คณะสัตวแพทยศาสตร์', en: 'Faculty of Veterinary Science',
+        desc: '', learn: [], majors: [
+        ['สัตวแพทยศาสตรบัณฑิต', 'Doctor of Veterinary Medicine'],
+      ]},
+      { id: 'decorative-arts', th: 'คณะมัณฑนศิลป์', en: 'Faculty of Decorative Arts',
+        desc: '', learn: [], majors: [
+        ['การออกแบบแฟชั่น', 'Fashion Design'],
+        ['การออกแบบผลิตภัณฑ์', 'Product Design'],
+        ['การออกแบบภายใน', 'Interior Design'],
+        ['การออกแบบนิเทศศิลป์', 'Visual Communication Design'],
+      ]},
+      { id: 'music', th: 'คณะดุริยางคศิลป์', en: 'Faculty of Music',
+        desc: '', learn: [], majors: [
+        ['สาขาการแสดงดนตรี', 'Music Performance'],
+        ['สาขาดนตรีเชิงพาณิชย์', 'Commercial Music'],
+        ['สาขาธุรกิจดนตรีและบันเทิง', 'Music and Entertainment Business'],
+        ['สาขาดนตรีบำบัด', 'Music Therapy'],
+      ]},
+    ];
+
+    /* ---------- หมวดหมู่ใหญ่ (ย้ายคณะข้ามหมวดได้ด้วยการย้าย id) ---------- */
+    const CATEGORIES = [
+      { th: 'สายสุขภาพ', ids: ['medicine', 'dentistry', 'pharmacy', 'veterinary'] },
+      { th: 'วิศวกรรมและสถาปัตยกรรม', ids: ['engineering', 'architecture'] },
+      { th: 'ศิลปะและการออกแบบ', ids: ['fine-arts', 'decorative-arts', 'music'] },
+      { th: 'มนุษยศาสตร์', ids: ['arts', 'archaeology'] },
+      { th: 'ธุรกิจ เศรษฐศาสตร์และการสื่อสาร', ids: ['commerce', 'economics', 'comm-arts'] },
+      { th: 'สังคมศาสตร์และการศึกษา', ids: ['law', 'political-science', 'psychology', 'education'] },
+    ];
+
+    // คณะที่ลืมใส่หมวดจะไปอยู่หมวด "อื่น ๆ" ไม่หายไป
+    const usedIds = new Set(CATEGORIES.flatMap(c => c.ids));
+    const restIds = FACULTIES.filter(f => !usedIds.has(f.id)).map(f => f.id);
+    if (restIds.length) CATEGORIES.push({ th: 'อื่น ๆ', ids: restIds });
+
+    const catOf = id => CATEGORIES.find(c => c.ids.includes(id));
+    const byId = id => FACULTIES.find(f => f.id === id);
+    const DEFAULT_ID = CATEGORIES[0].ids[0];
+
+    /* ---------- render ---------- */
+    const tabsEl = document.getElementById('facTabs');
+    const panelEl = document.getElementById('facPanel');
+    const searchEl = document.getElementById('facSearch');
+    const searchClearEl = document.getElementById('facSearchClear');
+    const resultCountEl = document.getElementById('facResultCount');
+    const sidebarEl = document.getElementById('facSidebar');
+    const pickerEl = document.getElementById('facPicker');
+    const pickerValueEl = document.getElementById('facPickerValue');
+    const mqMobile = window.matchMedia('(max-width: 860px)');
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function setNav(open) {
+      sidebarEl.classList.toggle('is-open', open);
+      pickerEl.setAttribute('aria-expanded', String(open));
+    }
+    pickerEl.addEventListener('click', () => setNav(!sidebarEl.classList.contains('is-open')));
+
+    const esc = s => String(s ?? '').replace(/[&<>"]/g,
+      c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const list = arr => `<ul class="learn-list">${arr.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+    const normalize = v => String(v ?? '').toLocaleLowerCase('th').trim();
+
+    tabsEl.innerHTML = CATEGORIES.map(cat => `
+      <div class="fac-group" role="presentation">
+        <p class="fac-group__title" aria-hidden="true">${esc(cat.th)}</p>
+        ${cat.ids.map(byId).filter(Boolean).map(f => `
+          <button class="fac-tab" role="tab" id="tab-${f.id}" data-id="${f.id}"
+                  aria-selected="false" aria-controls="facPanel" tabindex="-1">${esc(f.th)}</button>`).join('')}
+      </div>`).join('');
+
+    function majorMatches(major, query) {
+      return !!query && normalize(`${major[0]} ${major[1]}`).includes(query);
+    }
+
+    function majorHTML(major, query) {
+      const [th, en, extra = {}] = major;
+      const rows = [];
+      if ((extra.subs || []).length) rows.push(`<dt>สาขาย่อย</dt><dd>${extra.subs.map(esc).join(', ')}</dd>`);
+      if ((extra.learn || []).length) rows.push(`<dt>เรียนอะไรบ้าง</dt><dd>${list(extra.learn)}</dd>`);
+      return `<li${majorMatches(major, query) ? ' class="is-match"' : ''}>
+        <div class="major-name">
+          <strong>${esc(th)}</strong>
+          ${en ? `<span>${esc(en)}</span>` : ''}
+        </div>
+        ${extra.note ? `<p class="major-note">${esc(extra.note)}</p>` : ''}
+        ${rows.length ? `<dl class="major-extra">${rows.join('')}</dl>` : ''}
+      </li>`;
+    }
+
+    function facultyMatches(f, query) {
+      if (!query) return true;
+      return normalize(catOf(f.id)?.th).includes(query)
+          || normalize(`${f.th} ${f.en}`).includes(query)
+          || f.majors.some(m => majorMatches(m, query));
+    }
+
+    function select(id, { updateHash = true, focus = false, animate = false } = {}) {
+      const f = byId(id) || byId(DEFAULT_ID);
+      const query = normalize(searchEl.value);
+
+      tabsEl.querySelectorAll('.fac-tab').forEach(btn => {
+        const on = btn.dataset.id === f.id;
+        btn.setAttribute('aria-selected', String(on));
+        btn.tabIndex = on ? 0 : -1;
+        if (on) {
+          panelEl.setAttribute('aria-labelledby', btn.id);
+          if (focus) btn.focus();
+          btn.scrollIntoView({ block: 'nearest' });
+        }
+      });
+      pickerValueEl.textContent = f.th;
+
+      panelEl.classList.remove('is-swapping');
+      if (animate) { void panelEl.offsetWidth; panelEl.classList.add('is-swapping'); }
+
+      // คณะที่มีสาขาเดียว (เช่น แพทย์ ทันตแพทย์ สัตวแพทย์) ไม่ต้องมีหัวข้อ "สาขาที่เปิดสอน"
+      const single = f.majors.length === 1;
+      const m0 = single ? f.majors[0] : null;
+      const x0 = (m0 && m0[2]) || {};
+      const learnAll = [...(f.learn || []), ...(single ? (x0.learn || []) : [])];
+      const hasBody = f.desc || (single && (x0.note || (x0.subs || []).length)) || learnAll.length || !single;
+
+      panelEl.innerHTML = `
+        <div class="fac-panel__head">
+          <p class="fac-panel__cat">${esc(catOf(f.id)?.th || '')}</p>
+          <h2>${esc(f.th)}</h2>
+          <p class="fac-panel__en">${esc(f.en)}</p>
+          ${single ? `<p class="fac-panel__program">หลักสูตร ${esc(m0[0])}${m0[1] ? ` (${esc(m0[1])})` : ''}</p>` : ''}
+        </div>
+        <div class="fac-panel__body">
+          ${f.desc ? `<p class="fac-panel__desc">${esc(f.desc)}</p>` : ''}
+          ${single && x0.note ? `<p class="fac-panel__desc">${esc(x0.note)}</p>` : ''}
+          ${single && (x0.subs || []).length
+            ? `<div class="fac-block"><h3>สาขาย่อย</h3><p class="fac-subs">${x0.subs.map(esc).join(', ')}</p></div>` : ''}
+          ${learnAll.length ? `<div class="fac-block"><h3>เรียนอะไรบ้าง</h3>${list(learnAll)}</div>` : ''}
+          ${single ? '' : `<div class="fac-block">
+            <h3>สาขาวิชาที่เปิดสอน<small>${f.majors.length} สาขา</small></h3>
+            <ul class="major-list">${f.majors.map(m => majorHTML(m, query)).join('')}</ul>
+          </div>`}
+          ${hasBody ? '' : '<p class="fac-soon">รายละเอียดของคณะจะประกาศเพิ่มเติมเร็ว ๆ นี้</p>'}
+        </div>`;
+
+      document.title = `${f.th} | Rommanaree University`;
+      if (updateHash) history.replaceState(null, '', '#' + f.id);
+    }
+
+    function filterFaculties() {
+      const query = normalize(searchEl.value);
+      const matches = FACULTIES.filter(f => facultyMatches(f, query));
+      const visible = new Set(matches.map(f => f.id));
+
+      tabsEl.querySelectorAll('.fac-tab').forEach(b => { b.hidden = !visible.has(b.dataset.id); });
+      tabsEl.querySelectorAll('.fac-group').forEach(g => { g.hidden = !g.querySelector('.fac-tab:not([hidden])'); });
+      tabsEl.hidden = matches.length === 0;
+
+      searchClearEl.hidden = !query;
+      resultCountEl.textContent = query
+        ? (matches.length ? `พบ ${matches.length} จาก ${FACULTIES.length} คณะ` : '')
+        : `ทั้งหมด ${FACULTIES.length} คณะ`;
+
+      if (!matches.length) {
+        panelEl.removeAttribute('aria-labelledby');
+        panelEl.innerHTML = `<div class="fac-empty"><strong>ไม่พบคณะหรือสาขาที่ตรงกับ “${esc(searchEl.value.trim())}”</strong>ลองใช้คำที่สั้นลง หรือค้นหาด้วยชื่อภาษาอังกฤษ</div>`;
+        return;
+      }
+
+      const current = tabsEl.querySelector('.fac-tab[aria-selected="true"]')?.dataset.id;
+      if (visible.has(current)) select(current, { updateHash: false });
+      else select(matches[0].id, { updateHash: false });
+    }
+
+    searchEl.addEventListener('input', filterFaculties);
+    searchClearEl.addEventListener('click', () => {
+      searchEl.value = '';
+      filterFaculties();
+      searchEl.focus();
+    });
+
+    tabsEl.addEventListener('click', e => {
+      const btn = e.target.closest('.fac-tab');
+      if (!btn) return;
+      select(btn.dataset.id, { animate: true });
+      if (mqMobile.matches) {
+        setNav(false);
+        panelEl.scrollIntoView({ behavior: mqReduce.matches ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+
+    // ลูกศร, Home, End
+    tabsEl.addEventListener('keydown', e => {
+      const ids = [...tabsEl.querySelectorAll('.fac-tab:not([hidden])')].map(b => b.dataset.id);
+      const cur = ids.indexOf(document.activeElement.dataset?.id);
+      if (cur < 0) return;
+      let next = null;
+      if (['ArrowDown', 'ArrowRight'].includes(e.key)) next = (cur + 1) % ids.length;
+      if (['ArrowUp', 'ArrowLeft'].includes(e.key)) next = (cur - 1 + ids.length) % ids.length;
+      if (e.key === 'Home') next = 0;
+      if (e.key === 'End') next = ids.length - 1;
+      if (next !== null) { e.preventDefault(); select(ids[next], { focus: true, animate: true }); }
+    });
+
+    window.addEventListener('hashchange', () => select(location.hash.slice(1), { updateHash: false, animate: true }));
+
+    select(location.hash.slice(1), { updateHash: false });
+    filterFaculties();
+  </script>
+</body>
+</html>
