@@ -72,4 +72,110 @@ document.addEventListener('DOMContentLoaded', () => {
     loadNavigation().catch((error) => {
         console.error('Unable to load the site navigation:', error);
     });
+    initializeScrollReveal();
 });
+
+function initializeScrollReveal() {
+    if (!('IntersectionObserver' in window)
+        || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
+    const revealTargets = [...document.querySelectorAll('section, figure.university-image')];
+    document.querySelectorAll('main').forEach((main) => {
+        if (!main.querySelector('section')) {
+            revealTargets.push(main);
+        }
+    });
+
+    if (revealTargets.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            entry.target.classList.toggle('is-scroll-visible', entry.isIntersecting);
+        });
+    }, { threshold: 0 });
+
+    revealTargets.forEach((target) => {
+        target.classList.add('scroll-reveal');
+        observer.observe(target);
+    });
+}
+
+const track = document.getElementById("track");
+const prev = document.getElementById("prevBtn");
+const next = document.getElementById("nextBtn");
+const count = document.getElementById("slideCount");
+const progress = document.getElementById("progressBar");
+const carouselViewport = document.getElementById("carouselViewport");
+
+if (track && prev && next && count && progress && carouselViewport) {
+  const cards = [...track.children];
+  let index = 0;
+  let scrollFrame = 0;
+
+  function getMetrics() {
+    if (cards.length === 0) return { stride: 0, maxIndex: 0, visible: 0 };
+
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 0;
+    const stride = cardWidth + gap;
+    const maxIndex = stride > 0
+      ? Math.max(0, Math.round((carouselViewport.scrollWidth - carouselViewport.clientWidth) / stride))
+      : 0;
+
+    return {
+      stride,
+      visible: Math.max(1, cards.length - maxIndex),
+      maxIndex
+    };
+  }
+
+  function updateSlider() {
+    const { maxIndex, visible } = getMetrics();
+    index = Math.min(Math.max(index, 0), maxIndex);
+
+    const firstVisible = Math.min(index + 1, cards.length);
+    const lastVisible = Math.min(index + visible, cards.length);
+    count.textContent = `${String(firstVisible).padStart(2, "0")} — ${String(lastVisible).padStart(2, "0")}`;
+    progress.style.width = `${cards.length ? (lastVisible / cards.length) * 100 : 0}%`;
+    prev.disabled = index === 0;
+    next.disabled = index === maxIndex;
+  }
+
+  function goTo(nextIndex) {
+    const { stride, maxIndex } = getMetrics();
+    index = Math.min(Math.max(nextIndex, 0), maxIndex);
+    carouselViewport.scrollTo({
+      left: index * stride,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+    });
+    updateSlider();
+  }
+
+  prev.addEventListener("click", () => goTo(index - 1));
+  next.addEventListener("click", () => goTo(index + 1));
+
+  carouselViewport.addEventListener("scroll", () => {
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = requestAnimationFrame(() => {
+      const { stride, maxIndex } = getMetrics();
+      if (stride > 0) index = Math.min(Math.round(carouselViewport.scrollLeft / stride), maxIndex);
+      updateSlider();
+    });
+  }, { passive: true });
+
+  carouselViewport.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      goTo(index - 1);
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      goTo(index + 1);
+    }
+  });
+
+  window.addEventListener("resize", () => goTo(index));
+  updateSlider();
+}
