@@ -18,22 +18,34 @@
 <div id="navbar-placeholder"></div>
  <!-- ===== HERO SECTION ===== -->
 
-<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-seal">
-            <img src="assets/ร่มนารี/IMG_8649.PNG" alt="ตรามหาวิทยาลัยร่มนารี">
+<section class="hero" >
+    <div class="hero-carousel" id="heroCarousel" role="region" aria-roledescription="carousel" aria-label="ภาพแนะนำมหาวิทยาลัย" tabindex="0">
+        <div class="hero-viewport" >
+            <div class="hero-inner" id="heroTrack" >
+                <div class="hero-slide" role="group" aria-roledescription="สไลด์" aria-label="ภาพที่ 1 จาก 3">
+                    <img src="assets/ร่มนารี/welcome.png" alt="ยินดีต้อนรับนักศึกษาใหม่ มหาวิทยาลัยร่มนารี" loading="lazy">
+                </div>
+                <div class="hero-slide" role="group" aria-roledescription="สไลด์" aria-label="ภาพที่ 2 จาก 3">
+                    <img src="assets/ร่มนารี/us.png" alt="เรื่องราวและประสบการณ์ของนักศึกษามหาวิทยาลัยร่มนารี" loading="lazy">
+                </div>
+                <div class="hero-slide" role="group" aria-roledescription="สไลด์" aria-label="ภาพที่ 3 จาก 3">
+                    <img src="assets/ร่มนารี/what.png" alt="ความรู้และประสบการณ์จากการเรียนที่มหาวิทยาลัยร่มนารี" loading="lazy">
+                </div>
+            </div>
+        </div>
+        <div class="hero-controls">
+            <button type="button" class="hero-prev" aria-label="ภาพแนะนำก่อนหน้า">←</button>
+            <button type="button" class="hero-next" aria-label="ภาพแนะนำถัดไป">→</button>
         </div>
     </div>
-  </section>
+</section>
    <section class="announcement-container">
-    <span class="item-head">ประกาศ</span>
       <marquee class="announcement-content">
           <span class="item">มหาวิทยาลัยร่มนารี ขอยินดีต้อนรับนักศึกษาทุกท่าน</span>
           <span class="item">เปิดรับสมัครนักศึกษาใหม่ Tcas1 ปีการศึกษา 2570 ตั้งแต่วันนี้ถึง 9 ธันวาคม</span>
           <span class="item">กิจกรรมเปิดบ้าน MRN Open House</span>
       </marquee>
     </section>
-    
 
 <section class="university-section" aria-labelledby="news-title">
 
@@ -81,7 +93,7 @@
           <span class="news-category">88 YEARS ANNIVERSARY</span>
           <h3>วันวานใต้ร่มนารี </h3>
           <p>พลิกปักษ์ประวัติศาสตร์ จากก้าวแรกสู่วิสัยทัศน์แห่งอนาคต</p>
-          <a class="read-more" href="activity.html">อ่านเพิ่มเติม <span>↗</span></a>
+          <a class="read-more" href="honors.html">อ่านเพิ่มเติม <span>↗</span></a>
         </div>
       </article>
 
@@ -102,21 +114,20 @@
       </article>
 
       <article class="news-card">
-        <a href="contact.html">
+        <a href="announcement.html">
           <div class="news-image">
-            <img src="assets/ร่มนารี/IMG_9773.PNG"
-                 alt="ข่าวประชาสัมพันธ์">
+            <img src="assets/ร่มนารี/ประกาศ.png"
+                 alt="ประกาศปิดพื้นที่คณะวิศวกรรมศาสตร์">
             <span class="image-number">04</span>
           </div>
         </a>
         <div class="card-info">
           <span class="news-category">ANNOUNCEMENT</span>
-          <h3>ข่าวประชาสัมพันธ์</h3>
-          <p>ติดตามข่าวสาร ประกาศ และข้อมูลสำคัญจากมหาวิทยาลัย</p>
-          <a class="read-more" href="contact.html">อ่านเพิ่มเติม <span>↗</span></a>
+          <h3>ข่าวประชาสัมพันธ์คณะวิศวกรรมศาสตร์</h3>
+          <p>การปิดพื้นที่เพื่อปรับปรุง ปรับเปลี่ยน และบูรณาการอาคารสถานที่ คณะวิศวกรรมศาสตร์ ประจำปีการศึกษาใหม่</p>
+          <a class="read-more" href="announcement.html">อ่านเพิ่มเติม <span>↗</span></a>
         </div>
       </article>
-
     </div>
   </div>
 
@@ -127,7 +138,7 @@
       <div id="progressBar"></div>
     </div>
 
-    <a href="activity.html" class="view-all">ดูข่าวและกิจกรรมทั้งหมด <span aria-hidden="true">↗</span></a>
+    <a href="announcement.html" class="view-all">ดูข่าวและกิจกรรมทั้งหมด <span aria-hidden="true">↗</span></a>
   </div>
 
 </section>
@@ -168,7 +179,7 @@
             <span class="campus-card__arrow" aria-hidden="true">↗</span>
           </a>
           <a class="campus-card campus-card--clubs" href="club.html">
-            <img src="assets/ร่มนารี/" alt="" loading="lazy">
+            <img src="assets/ร่มนารี/เพื่อน.JPG" alt="" loading="lazy">
             <span class="campus-card__content"><span class="campus-card__eyebrow">STUDENT COMMUNITY</span><span class="campus-card__title">ชมรมและเพื่อนใหม่</span></span>
             <span class="campus-card__arrow" aria-hidden="true">↗</span>
           </a>
@@ -183,7 +194,7 @@
             <span class="campus-card__arrow" aria-hidden="true">↗</span>
           </a>
           <a class="campus-card campus-card--about" href="about.html">
-            <img src="assets/ร่มนารี/" alt="" loading="lazy">
+            <img src="assets/ร่มนารี/มหาลัย.JPG" alt="" loading="lazy">
             <span class="campus-card__content"><span class="campus-card__eyebrow">OUR UNIVERSITY</span><span class="campus-card__title">รู้จักมหาวิทยาลัยร่มนารี</span></span>
             <span class="campus-card__arrow" aria-hidden="true">↗</span>
           </a>

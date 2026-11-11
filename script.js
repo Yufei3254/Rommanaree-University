@@ -66,6 +66,8 @@ async function loadNavigation() {
             }
         });
     });
+
+    initializeAnnouncementNotification();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -73,7 +75,105 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Unable to load the site navigation:', error);
     });
     initializeScrollReveal();
+    initializeHeroCarousel();
+    initializeInteractiveHighlights();
 });
+
+function initializeAnnouncementNotification() {
+    const bell = document.getElementById('announcementBell');
+    const dot = document.getElementById('announcementBellDot');
+    const notice = document.getElementById('announcementNotice');
+    if (!bell || !dot || !notice) return;
+
+    function closeNotice() {
+        notice.hidden = true;
+        bell.setAttribute('aria-expanded', 'false');
+    }
+
+    bell.addEventListener('click', () => {
+        const opening = notice.hidden;
+        notice.hidden = !opening;
+        bell.setAttribute('aria-expanded', String(opening));
+        if (opening) dot.hidden = true;
+    });
+
+    document.addEventListener('click', (event) => {
+        if (event.target instanceof Node
+            && !bell.contains(event.target)
+            && !notice.contains(event.target)) {
+            closeNotice();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !notice.hidden) {
+            closeNotice();
+            bell.focus();
+        }
+    });
+}
+
+function initializeInteractiveHighlights() {
+    document.querySelectorAll('.interactive-highlight').forEach((highlight) => {
+        highlight.addEventListener('click', () => {
+            const isHighlighted = highlight.getAttribute('aria-pressed') === 'true';
+            highlight.setAttribute('aria-pressed', String(!isHighlighted));
+        });
+    });
+}
+
+function initializeHeroCarousel() {
+    const carousel = document.getElementById('heroCarousel');
+    const track = document.getElementById('heroTrack');
+    const previous = carousel?.querySelector('.hero-prev');
+    const next = carousel?.querySelector('.hero-next');
+    const slides = track ? [...track.children] : [];
+
+    if (!carousel || !track || !previous || !next || slides.length < 2) return;
+
+    let activeIndex = 0;
+    let timer;
+    let controlsTimer;
+
+    function showSlide(index) {
+        activeIndex = (index + slides.length) % slides.length;
+        track.style.transform = `translateX(-${activeIndex * 100}%)`;
+    }
+
+    function revealControls() {
+        carousel.classList.add('controls-visible');
+        window.clearTimeout(controlsTimer);
+        controlsTimer = window.setTimeout(() => {
+            carousel.classList.remove('controls-visible');
+        }, 2500);
+    }
+
+    function stopAutoplay() {
+        window.clearInterval(timer);
+    }
+
+    function startAutoplay() {
+        stopAutoplay();
+        if (!document.hidden) {
+            timer = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+        }
+    }
+
+    previous.addEventListener('click', () => {
+        showSlide(activeIndex - 1);
+        startAutoplay();
+    });
+    next.addEventListener('click', () => {
+        showSlide(activeIndex + 1);
+        startAutoplay();
+    });
+    carousel.addEventListener('pointerdown', (event) => {
+        if (event.pointerType !== 'mouse') revealControls();
+    });
+    document.addEventListener('visibilitychange', startAutoplay);
+
+    startAutoplay();
+}
 
 function initializeScrollReveal() {
     if (!('IntersectionObserver' in window)

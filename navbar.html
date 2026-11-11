@@ -18,13 +18,13 @@
           <div class="nav-dropdown__menu">
             <a href="about.html">ประวัติสถาบัน</a>
             <a href="contact.html">ติดต่อเรา</a>
-            <a href="rule.html">กฎระเบียบ</a>
           </div>
         </details>
         <details class="nav-dropdown">
           <summary>การศึกษา</summary>
           <div class="nav-dropdown__menu">
             <a href="faculty.html">คณะและสาขา</a>
+            <a href="rule.html">กฎระเบียบ</a>
           </div>
         </details>
         <details class="nav-dropdown">
@@ -43,7 +43,19 @@
         สมัครเข้าศึกษา
       </a>
 
-      <button id="applybtn" type="button" class="menu-toggle ml-auto text-blue-950"
+      <div class="notification-control">
+        <button class="notification-bell" id="announcementBell" type="button" aria-label="มีประกาศใหม่" aria-expanded="false" aria-controls="announcementNotice">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+          <span class="notification-bell__dot" id="announcementBellDot" aria-label="มีข่าวใหม่"></span>
+        </button>
+        <div class="notification-popover" id="announcementNotice" role="region" aria-label="การแจ้งเตือน" hidden>
+          <span class="notification-popover__eyebrow">ประกาศใหม่</span>
+          <p>มีข่าวประชาสัมพันธ์จากสโมสรนักศึกษา</p>
+          <a href="announcement.html">อ่านประกาศล่าสุด <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+
+      <button id="applybtn" type="button" class="menu-toggle ml-2 text-blue-950"
               aria-label="เปิดเมนู" aria-expanded="false" aria-controls="mobileMenu">
         <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path class="burger-line" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"></path>
@@ -63,7 +75,6 @@
           <div class="mobile-dropdown__menu">
             <a href="about.html">ประวัติสถาบัน</a>
             <a href="contact.html">ติดต่อเรา</a>
-            <a href="rule.html">กฎระเบียบ</a>
           </div>
         </details>
       </li>
@@ -72,6 +83,7 @@
           <summary>การศึกษา</summary>
           <div class="mobile-dropdown__menu">
             <a href="faculty.html">คณะและสาขา</a>
+            <a href="rule.html">กฎระเบียบ</a>
           </div>
         </details>
       </li>
