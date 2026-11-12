@@ -9,11 +9,12 @@
   <script src="script.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@600;700&family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    html, body { height: 100%; margin: 0; }
+    html, body { min-height: 100%; margin: 0; }
     body {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
       font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
     }
     .font-heading { font-family: 'Noto Serif Thai', serif; }
@@ -23,7 +24,6 @@
       position: relative;
       display: grid;
       flex: 1;
-      min-height: 0;
       padding: 24px;
       place-items: center;
       overflow: hidden;
@@ -106,7 +106,7 @@
         <a href="index.html" class="justify-self-start flex items-center gap-3">
           <img src="assets/ร่มนารี/Logo.PNG" alt="MRN_AU" class="h-12 w-12 object-contain">
           <span class="font-heading text-lg md:text-xl font-bold leading-normal" style="color: whitesmoke">
-            <span class="block">Romnaree</span>
+            <span class="block">Rommanaree</span>
             <span class="block ml-3 mt-1">University</span>
           </span>
         </a>
@@ -142,7 +142,7 @@
 
   <main class="cs">
     <div class="cs__inner">
-      <p class="cs__eyebrow">ROMNAREE UNIVERSITY</p>
+      <p class="cs__eyebrow">ROMMANAREE UNIVERSITY</p>
       <h1 class="cs__title">เร็ว ๆ นี้</h1>
       <span class="cs__rule" aria-hidden="true"></span>
       <p class="cs__text">

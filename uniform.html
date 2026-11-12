@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rommanaree University | การแต่งกาย</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@600;700&family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; }
+    .font-heading { font-family: 'Noto Serif Thai', serif; }
+
+    .uniform-page {
+      min-height: calc(100vh - 80px);
+      padding: clamp(32px, 5vw, 56px) 20px 72px;
+      color: #173332;
+      background: #f4f7f6;
+    }
+
+    .uniform-page__inner {
+      width: min(100%, 1120px);
+      margin: 0 auto;
+    }
+
+    .uniform-heading {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .uniform-heading__eyebrow {
+      margin: 0 0 8px;
+      color: #165d5a;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .uniform-heading h1 {
+      margin: 0;
+      color: #123f3c;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.4;
+    }
+
+    .uniform-heading__description {
+      margin: 8px 0 0;
+      color: #647674;
+      line-height: 1.8;
+    }
+
+    .uniform-gallery {
+      display: grid;
+      gap: clamp(36px, 5vw, 56px);
+    }
+
+    .uniform-slide {
+      margin: 0;
+    }
+
+    .uniform-slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .uniform-slide figcaption {
+      margin: 0 0 12px;
+      padding-left: 14px;
+      color: #123f3c;
+      border-left: 4px solid #8bd1b1;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .uniform-resources {
+      display: grid;
+      justify-items: center;
+      gap: 18px;
+      width: min(100%, 820px);
+      margin: 40px auto 0;
+      padding: clamp(22px, 4vw, 32px);
+      text-align: center;
+      background: linear-gradient(135deg, #e8f4ef, #f4f7f6);
+      border: 1px solid rgb(22 93 90 / 20%);
+      border-radius: 20px;
+    }
+
+    .uniform-resources__title {
+      margin: 0;
+      color: #123f3c;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+      font-weight: 700;
+    }
+
+    .uniform-resources__note {
+      margin: 0;
+      color: #647674;
+      font-size: .95rem;
+    }
+
+    .uniform-resources__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .uniform-resource-button {
+      display: inline-flex;
+      flex: 0 1 270px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 12px 18px;
+      color: #fff;
+      background: #165d5a;
+      border: 0;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgb(22 93 90 / 16%);
+      font: inherit;
+      font-weight: 500;
+    }
+
+    .uniform-resource-button svg {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+    }
+
+    .uniform-resource-button:disabled {
+      opacity: .76;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .uniform-page { padding-right: 14px; padding-left: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <main class="uniform-page">
+    <div class="uniform-page__inner">
+      <header class="uniform-heading">
+        <h1>การแต่งกาย</h1>
+        <p class="uniform-heading__description">รูปแบบการแต่งกายและเสื้อช็อปของนักศึกษามหาวิทยาลัยร่มนารี</p>
+      </header>
+
+      <section class="uniform-gallery" aria-label="ภาพการแต่งกายของนักศึกษา">
+        <figure class="uniform-slide">
+          <figcaption>การแต่งกายชุดนักศึกษาปกติ</figcaption>
+          <img src="assets/ร่มนารี/StudentUniform.png" alt="แนวทางการแต่งกายชุดนักศึกษาปกติ" width="1920" height="1080" loading="eager" decoding="async">
+        </figure>
+        <figure class="uniform-slide">
+          <figcaption>การแต่งกายงานพิธี</figcaption>
+          <img src="assets/ร่มนารี/CeremonialAttire.png" alt="แนวทางการแต่งกายชุดนักศึกษางานพิธี" width="1920" height="1080" loading="lazy" decoding="async">
+        </figure>
+        <figure class="uniform-slide">
+          <figcaption>เสื้อช็อปคณะวิศวกรรมศาสตร์</figcaption>
+          <img src="assets/ร่มนารี/ENG.png" alt="เสื้อช็อปคณะวิศวกรรมศาสตร์ แยกตามสาขาวิชา" width="1920" height="1080" loading="lazy" decoding="async">
+        </figure>
+        <figure class="uniform-slide">
+          <figcaption>เสื้อช็อปคณะสายสุขภาพ</figcaption>
+          <img src="assets/ร่มนารี/MED.png" alt="เสื้อช็อปคณะสายสุขภาพ" width="1920" height="1080" loading="lazy" decoding="async">
+        </figure>
+        <figure class="uniform-slide">
+          <figcaption>เสื้อช็อปคณะสถาปัตยกรรม คณะโบราณคดี และคณะมัณฑนศิลป์</figcaption>
+          <img src="assets/ร่มนารี/Other.png" alt="เสื้อช็อปคณะสถาปัตยกรรม คณะโบราณคดี และคณะมัณฑนศิลป์" width="1920" height="1080" loading="lazy" decoding="async">
+        </figure>
+      </section>
+      <section class="uniform-resources" aria-label="ไฟล์ประกอบชุดพิธีการ">
+        <h2 class="uniform-resources__title">ลิงก์ Google Drive</h2>
+        <div class="uniform-resources__buttons">
+          <button class="uniform-resource-button" type="button" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"></path>
+            </svg>
+            เข็มนักศึกษา
+          </button>
+          <button class="uniform-resource-button" type="button" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"></path>
+            </svg>
+            ตราประจำคณะ
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

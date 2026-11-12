@@ -3,99 +3,443 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rommanaree University | เร็ว ๆ นี้</title>
+  <title>Rommanaree University | เกี่ยวกับมหาวิทยาลัย</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="script.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@600;700&family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    html, body { height: 100%; margin: 0; }
-    body {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
-    }
+    body { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; }
     .font-heading { font-family: 'Noto Serif Thai', serif; }
 
-    /* ---------- Coming Soon ---------- */
-    .cs {
-      position: relative;
-      display: grid;
-      flex: 1;
-      min-height: 0;
-      padding: 24px;
-      place-items: center;
-      overflow: hidden;
+    .about-page {
+      min-height: calc(100vh - 80px);
+      padding: 0 0 72px;
       color: #173332;
       background: #f4f7f6;
     }
 
-    .cs::before,
-    .cs::after {
-      position: absolute;
-      content: "";
-      border: 1px solid #165d5a;
-      border-radius: 50%;
-      opacity: .12;
-      pointer-events: none;
+    .about-page__inner {
+      width: min(100%, 1040px);
+      margin: 0 auto;
+      padding: 0 20px;
     }
-    .cs::before { width: 520px; height: 520px; top: -200px; right: -140px; }
-    .cs::after  { width: 340px; height: 340px; bottom: -150px; left: -90px; }
 
-    .cs__inner {
-      position: relative;
-      z-index: 1;
-      max-width: 560px;
+    .about-heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(24px, 5vw, 56px);
+      min-height: clamp(320px, 42vw, 480px);
+      margin-bottom: 28px;
+      padding: clamp(48px, 8vw, 96px) 20px;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgb(9 39 37 / 88%), rgb(9 39 37 / 48%)),
+        url("assets/ร่มนารี/มหาลัย.JPG") center 55% / cover no-repeat;
+    }
+
+    .about-heading__eyebrow {
+      margin: 0 0 6px;
+      color: #b9e5d4;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    .about-heading__content {
+      width: min(100%, 720px);
+    }
+
+    .about-heading h1 {
+      margin: 0;
+      color: #fff;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(2rem, 5.5vw, 3.75rem);
+      line-height: 1.4;
+    }
+
+    .about-heading__logo {
+      flex: 0 0 auto;
+      width: clamp(96px, 14vw, 160px);
+      height: clamp(96px, 14vw, 160px);
+      object-fit: contain;
+    }
+
+    .about-heading__intro {
+      margin: 12px 0 0;
+      color: rgb(255 255 255 / 82%);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .about-facts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 18px 0 26px;
+      border-bottom: 1px solid rgb(22 93 90 / 16%);
+    }
+
+    .about-fact {
+      flex: 0 1 calc(33.333% - 14px);
+      min-width: 0;
+      padding: 10px 8px;
       text-align: center;
     }
 
-    .cs__eyebrow {
-      margin: 0 0 18px;
-      color: #165d5a;
-      font-size: .85rem;
-      font-weight: 500;
-      letter-spacing: .28em;
-    }
-
-    .cs__title {
+    .about-fact h2,
+    .about-section-title {
       margin: 0;
       color: #123f3c;
       font-family: 'Noto Serif Thai', serif;
-      font-size: clamp(3rem, 11vw, 5.5rem);
-      font-weight: 600;
-      line-height: 1.3;
+      font-size: 1.2rem;
+      line-height: 1.6;
     }
 
-    .cs__rule {
-      display: block;
-      width: 56px;
-      height: 2px;
-      margin: 26px auto;
-      background: #165d5a;
-    }
-
-    .cs__text {
-      margin: 0 0 34px;
+    .about-fact p,
+    .about-text-box p {
+      margin: 12px 0 0;
       color: #647674;
-      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .about-fact__visual {
+      display: grid;
+      width: 108px;
+      height: 108px;
+      margin: 0 auto 16px;
+      place-items: center;
+      color: #165d5a;
+      background: #fff;
+      border: 1px solid rgb(22 93 90 / 14%);
+      border-radius: 50%;
+    }
+
+    .about-fact__visual img {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+    }
+
+    .about-fact__visual--flower {
+      overflow: hidden;
+      border: 2px solid #8bd1b1;
+      text-decoration: none;
+    }
+
+    .about-fact__visual--flower:focus-visible {
+      outline: 3px solid #165d5a;
+      outline-offset: 4px;
+    }
+
+    .about-fact__visual--flower img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .about-fact__visual--color {
+      background: #165d5a;
+      border: 2px solid #165d5a;
+      padding: 0;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .about-fact__visual--color:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgb(22 93 90 / 24%);
+    }
+
+    .about-fact__visual--color:focus-visible {
+      outline: 3px solid #8bd1b1;
+      outline-offset: 4px;
+    }
+
+    .about-fact__visual--color:active {
+      transform: scale(.96);
+    }
+
+    .about-copy-toast {
+      position: fixed;
+      z-index: 1000;
+      bottom: 24px;
+      left: 50%;
+      max-width: calc(100vw - 32px);
+      padding: 11px 18px;
+      color: #fff;
+      background: #123f3c;
+      border: 1px solid rgb(255 255 255 / 18%);
+      border-radius: 999px;
+      box-shadow: 0 12px 30px rgb(8 35 34 / 22%);
+      text-align: center;
+      transform: translateX(-50%);
+    }
+
+    .about-copy-toast[hidden] {
+      display: none;
+    }
+
+    .about-fact__visual--animal {
+      overflow: hidden;
+      border: 2px solid #8bd1b1;
+    }
+
+    .about-fact__visual--animal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .about-fact__visual--symbol {
+      color: #165d5a;
+      background: #e8f4ef;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .about-placeholder {
+      min-height: 58px;
+      margin-top: 8px !important;
+      padding: 10px 4px;
+      color: #647674;
+      border-top: 1px solid rgb(22 93 90 / 14%);
+    }
+
+    .about-caption {
+      margin: 36px auto;
+      padding: 0 clamp(12px, 4vw, 36px);
+      text-align: center;
+    }
+
+    .about-caption__text {
+      max-width: 780px;
+      margin: 0 auto;
+      color: #165d5a;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      font-weight: 600;
       line-height: 1.9;
     }
 
-    .cs__link {
-      display: inline-block;
-      padding: 11px 28px;
-      color: #165d5a;
-      border: 1px solid #165d5a;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: background-color .2s ease, color .2s ease;
+    .about-long-info,
+    .about-history {
+      margin-top: 32px;
     }
-    .cs__link:hover { color: #fff; background: #165d5a; }
 
-    @media (max-height: 560px) {
-      .cs__rule { margin: 16px auto; }
-      .cs__text { margin-bottom: 20px; }
+    .about-section-title {
+      margin-bottom: 14px;
+      padding-left: 14px;
+      border-left: 4px solid #8bd1b1;
+      font-size: clamp(1.3rem, 3vw, 1.65rem);
+    }
+
+    .about-text-box {
+      min-height: 150px;
+      padding: clamp(20px, 4vw, 28px);
+      background: #fff;
+      border: 1px solid rgb(22 93 90 / 12%);
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgb(8 35 34 / 5%);
+    }
+
+    .about-overview__intro {
+      max-width: 860px;
+      margin: 0 auto;
+      color: #647674;
+      font-size: clamp(1.15rem, 2vw, 1.35rem);
+      line-height: 2;
+      text-align: center;
+    }
+
+    .about-overview__intro strong {
+      color: #165d5a;
+      font-weight: 700;
+    }
+
+    .about-history__lead {
+      margin-bottom: 20px;
+    }
+
+    .about-history__lead > p {
+      margin: 0;
+      color: #647674;
+      line-height: 1.9;
+    }
+
+    .about-history__quote {
+      margin: 24px 0 0;
+      padding: clamp(20px, 4vw, 28px);
+      color: #fff;
+      background: linear-gradient(120deg, #165d5a, #123f3c);
+      border-radius: 0 48px 48px 0;
+    }
+
+    .about-history__quote.scroll-reveal {
+      transform: translateX(-36px);
+    }
+
+    .about-history__quote.scroll-reveal.is-scroll-visible {
+      transform: translateX(0);
+    }
+
+    .about-history__quote blockquote {
+      margin: 0;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      line-height: 1.9;
+    }
+
+    .about-history__quote figcaption {
+      margin-top: 14px;
+      color: rgb(255 255 255 / 82%);
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .about-timeline {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding-left: 34px;
+    }
+
+    .about-timeline::before {
+      position: absolute;
+      top: 24px;
+      bottom: 24px;
+      left: 10px;
+      width: 2px;
+      content: "";
+      background: linear-gradient(to bottom, #8bd1b1, #165d5a);
+    }
+
+    .about-timeline__item {
+      position: relative;
+      overflow: visible;
+    }
+
+    .about-timeline__item::before {
+      position: absolute;
+      top: 24px;
+      left: -30px;
+      z-index: 1;
+      width: 14px;
+      height: 14px;
+      content: "";
+      background: #fff;
+      border: 3px solid #165d5a;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px #f4f7f6;
+    }
+
+    .about-timeline__item[open]::before {
+      background: #165d5a;
+      border-color: #8bd1b1;
+    }
+
+    .about-timeline__item summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .about-timeline__item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .about-timeline__item summary:focus-visible {
+      outline: 3px solid #8bd1b1;
+      outline-offset: -3px;
+    }
+
+    .about-timeline__number {
+      flex: 0 0 auto;
+      color: #165d5a;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .about-timeline__label {
+      display: grid;
+      flex: 1;
+      gap: 3px;
+    }
+
+    .about-timeline__label strong {
+      color: #123f3c;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 1.05rem;
+    }
+
+    .about-timeline__label span {
+      color: #647674;
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    .about-timeline__toggle {
+      flex: 0 0 auto;
+      color: #165d5a;
+      font-size: 1.5rem;
+      line-height: 1;
+      transition: transform 180ms ease;
+    }
+
+    .about-timeline__item[open] .about-timeline__toggle {
+      transform: rotate(45deg);
+    }
+
+    .about-timeline__content {
+      padding: 14px 20px 20px 52px;
+      color: #647674;
+      border-top: 1px solid rgb(22 93 90 / 12%);
+      line-height: 1.9;
+    }
+
+    .about-timeline__content p {
+      margin: 0;
+    }
+
+    .about-timeline__content p + p {
+      margin-top: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .about-page__inner { padding-right: 14px; padding-left: 14px; }
+      .about-heading {
+        flex-direction: column;
+        gap: 18px;
+        min-height: 340px;
+        text-align: center;
+      }
+      .about-heading__logo { width: 88px; height: 88px; }
+      .about-facts { gap: 8px; }
+      .about-fact { flex-basis: calc(50% - 4px); }
+      .about-fact:nth-child(3) { flex-basis: 100%; }
+      .about-fact__visual { width: 82px; height: 82px; }
+      .about-fact__visual img { width: 58px; height: 58px; }
+      .about-fact__visual--flower img { width: 100%; height: 100%; }
+      .about-fact__visual--animal img { width: 100%; height: 100%; }
+      .about-timeline__item summary { gap: 12px; padding: 16px; }
+      .about-timeline__content { padding: 14px 16px 18px; }
+      .about-timeline { padding-left: 26px; }
+      .about-timeline::before { left: 7px; }
+      .about-timeline__item::before { left: -24px; }
+    }
+
+    @media (max-width: 380px) {
+      .about-fact { flex-basis: 100%; }
     }
   </style>
 </head>
@@ -106,7 +450,7 @@
         <a href="index.html" class="justify-self-start flex items-center gap-3">
           <img src="assets/ร่มนารี/Logo.PNG" alt="MRN_AU" class="h-12 w-12 object-contain">
           <span class="font-heading text-lg md:text-xl font-bold leading-normal" style="color: whitesmoke">
-            <span class="block">Romnaree</span>
+            <span class="block">Rommanaree</span>
             <span class="block ml-3 mt-1">University</span>
           </span>
         </a>
@@ -140,17 +484,156 @@
     </div>
   </header>
 
-  <main class="cs">
-    <div class="cs__inner">
-      <p class="cs__eyebrow">ROMNAREE UNIVERSITY</p>
-      <h1 class="cs__title">เร็ว ๆ นี้</h1>
-      <span class="cs__rule" aria-hidden="true"></span>
-      <p class="cs__text">
-        เรากำลังเตรียมเนื้อหาหน้านี้อยู่<br>
-        ขอบคุณที่รอ แล้วพบกันเร็ว ๆ นี้
-      </p>
-      <a href="index.html" class="cs__link">กลับหน้าหลัก</a>
+  <main class="about-page">
+    <header class="about-heading">
+      <img class="about-heading__logo" src="assets/ร่มนารี/Logo.PNG" alt="">
+      <div class="about-heading__content">
+        <p class="about-heading__eyebrow">ROMMANAREE UNIVERSITY</p>
+        <h1>มหาวิทยาลัยร่มนารี</h1>
+        <p class="about-heading__intro">อัตลักษณ์และประวัติความเป็นมาของมหาวิทยาลัย</p>
+      </div>
+    </header>
+
+    <div class="about-page__inner">
+      <section class="about-facts" aria-label="ข้อมูลประจำมหาวิทยาลัย">
+        <article class="about-fact">
+          <a class="about-fact__visual about-fact__visual--flower"
+             href="https://blog.wu.ac.th/wp-content/uploads/2022/08/dFQROr7oWzulq5FZUE4wJfV73Lptl14EovZuuQkpM077Tx5ZvVT16apMSHf5gq9mx8k.jpg"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="เครดิตภาพดอกพิกุลทอง เปิดแหล่งที่มาในแท็บใหม่"
+             title="เครดิตภาพจาก blog.wu.ac.th — คลิกเพื่อดูที่มา">
+            <img src="https://blog.wu.ac.th/wp-content/uploads/2022/08/dFQROr7oWzulq5FZUE4wJfV73Lptl14EovZuuQkpM077Tx5ZvVT16apMSHf5gq9mx8k.jpg"
+                 alt="เครดิตภาพดอกพิกุลทองจาก blog.wu.ac.th"
+                 loading="lazy"
+                 decoding="async"
+                 referrerpolicy="no-referrer">
+          </a>
+          <h2>ดอกไม้ประจำมหาวิทยาลัย</h2>
+          <p class="about-placeholder">ดอกพิกุลทอง</p>
+        </article>
+        <article class="about-fact">
+          <button type="button"
+                  class="about-fact__visual about-fact__visual--color"
+                  id="universityColorCopy"
+                  data-copy="#165d5a"
+                  aria-label="คัดลอกโค้ดสีประจำมหาวิทยาลัย #165d5a"
+                  title="คลิกเพื่อคัดลอก #165d5a"></button>
+          <h2>สีประจำมหาวิทยาลัย</h2>
+          <p class="about-placeholder">สีเขียวสัมฤทธิ์คุณ</p>
+        </article>
+        <article class="about-fact">
+          <div class="about-fact__visual about-fact__visual--animal">
+            <img src="assets/ร่มนารี/cat.jpg" alt="แมววิเชียรมาศ" loading="lazy" decoding="async">
+          </div>
+          <h2>สัตว์ประจำมหาวิทยาลัย</h2>
+          <p class="about-placeholder">แมววิเชียรมาศ</p>
+        </article>
+        <article class="about-fact">
+          <div class="about-fact__visual about-fact__visual--symbol" aria-hidden="true">“ ”</div>
+          <h2>คติพจน์</h2>
+          <p class="about-placeholder">“ใต้ร่มเงาปัญญา ชาวประชาชนยืนอย่างเสรี”</p>
+        </article>
+        <article class="about-fact">
+          <div class="about-fact__visual about-fact__visual--symbol" aria-hidden="true">✧</div>
+          <h2>ปรัชญา</h2>
+          <p class="about-placeholder">“กฎคือราก ปัญญาคือกิ่งก้าน และเสรีภาพคือผลที่เติบโต”</p>
+        </article>
+      </section>
+
+      <section class="about-caption" aria-label="คำบรรยายสั้นเกี่ยวกับมหาวิทยาลัย">
+        <p class="about-caption__text">อำนาจทางการเมืองต้องมาจาก ประชาชน ผู้เป็นเจ้าของอำนาจ<br>ไม่ใช่ของคนใดคนหนึ่ง</p>
+      </section>
+
+      <section class="about-long-info" aria-label="ข้อมูลมหาวิทยาลัย">
+        <p class="about-overview__intro">
+          มหาวิทยาลัยร่มนารีก่อตั้งเมื่อปี <strong>พ.ศ. 2481</strong> ณ <strong>ย่านงามวงศ์วาน จังหวัดนนทบุรี</strong>
+        </p>
+      </section>
+
+      <section class="about-history" aria-labelledby="about-history-title">
+        <h2 class="about-section-title" id="about-history-title">ประวัติมหาวิทยาลัย</h2>
+        <div class="about-history__lead">
+          <p>มหาวิทยาลัยร่มนารี (Rommanaree University) เป็นสถาบันอุดมศึกษาสำคัญแห่งจังหวัดนนทบุรี ตั้งอยู่ในย่านงามวงศ์วาน ถือกำเนิดขึ้นท่ามกลางบริบทการเปลี่ยนแปลงครั้งใหญ่ทางสังคมและการเมืองไทย โดยมุ่งเปิดพื้นที่ทางการเรียนรู้เพื่อสร้างปัญญาชนผู้ยึดมั่นในนิติธรรมและผดุงความยุติธรรมให้แก่สังคมสืบมา</p>
+          <figure class="about-history__quote">
+            <blockquote>“จงถือเอาความเที่ยงตรงเป็นเสาหลัก ถือเอาความเมตตาเป็นร่มบดบังภัย ปัญญาที่ไร้ซึ่งธรรมะ ย่อมเป็นภัยยิ่งกว่าความเขลา ลาภยศและสรรเสริญจะยั่งยืนได้ ก็ด้วยจิตอันบริสุทธิ์ที่ทรงธรรมะแห่งวิชาชีพไว้ และรับใช้ประชาชนอย่างจริงแท้เท่านั้น”</blockquote>
+            <figcaption>— โอวาท สมเด็จเจ้าฟ้าศรีรัตนนารี<br>พระผู้ประทานกำเนิดมหาวิทยาลัยร่มนารี</figcaption>
+          </figure>
+        </div>
+        <div class="about-timeline" aria-label="เรื่องราวและพัฒนาการของมหาวิทยาลัย">
+          <details class="about-timeline__item" open>
+            <summary>
+              <span class="about-timeline__number" aria-hidden="true">01</span>
+              <span class="about-timeline__label">
+                <strong>รากฐานแรกเริ่มและการยกระดับสถาบัน</strong>
+                <span>จากโรงเรียนสวนรัตนา สู่มหาวิทยาลัยร่มนารี</span>
+              </span>
+              <span class="about-timeline__toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="about-timeline__content">
+              <p>จุดเริ่มต้นแรกสุดของสถาบันย้อนกลับไปในยุคก่อตั้งโรงเรียนฝึกหัดและอบรมพื้นฐานในอดีต โดยเริ่มจากการเป็น “โรงเรียนสวนรัตนา” สถาบันการศึกษาขนาดเล็กแบบดั้งเดิมที่เน้นการเรียนการสอนพื้นฐานทั่วไปตามยุคสมัย</p>
+              <p>ต่อมาเมื่อความต้องการบุคลากรที่มีความรู้ความสามารถเฉพาะทางขยายตัวขึ้น โรงเรียนได้รับการปรับปรุงโครงสร้างและยกระดับขึ้นเป็น “โรงเรียนมหาดเล็กราชบัณฑิต” เพื่อผลิตข้าราชการและเจ้าหน้าที่ผู้มีความรู้ความเชี่ยวชาญเข้าสู่ระบบบริหารแผ่นดิน</p>
+              <p>กระทั่งถึงจุดเปลี่ยนสำคัญ เมื่อสมเด็จเจ้าฟ้าศรีรัตนนารีทรงเล็งเห็นถึงความสำคัญของการปฏิรูปการศึกษาในระยะยาว จึงทรงเข้ามาปฏิรูปยกระดับสถาบันแห่งนี้อย่างเต็มรูปแบบ โดยทรงชูหมวดวิชา “นิติศาสตร์” ให้เป็นแกนหลักสำคัญในการพัฒนา เพื่อวางรากฐานระบอบการปกครองภายใต้หลักประชาธิปไตย ความเสมอภาค และศักดิ์ศรีความเป็นมนุษย์ พร้อมทั้งได้รับพระราชทานนามสถาบันอย่างเป็นทางการว่า “มหาวิทยาลัยร่มนารี” ในปี พ.ศ. 2481</p>
+            </div>
+          </details>
+          <details class="about-timeline__item">
+            <summary>
+              <span class="about-timeline__number" aria-hidden="true">02</span>
+              <span class="about-timeline__label">
+                <strong>จุดเริ่มต้นและประวัติศาสตร์การก่อตั้ง</strong>
+                <span>การเปลี่ยนแปลงทางสังคมและแนวคิด “ร่มไม้ใหญ่”</span>
+              </span>
+              <span class="about-timeline__toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="about-timeline__content">
+              <p>การประดิษฐานมหาวิทยาลัยร่มนารีในปี พ.ศ. 2481 เกิดขึ้นท่ามกลางสภาวะความผันผวนอย่างรุนแรง ทั้งผลกระทบจากภาวะเศรษฐกิจตกต่ำทั่วโลก หลังการเปลี่ยนแปลงการปกครอง พ.ศ. 2475 รวมถึงคลื่นความตึงเครียดทางการเมืองระหว่างประเทศก่อนปะทุเข้าสู่สงครามโลกครั้งที่สอง</p>
+              <p>ท่ามกลางกระแสความขัดแย้งและอุดมการณ์ที่ดังเกินกว่าจะคิดอย่างรอบคอบ สมเด็จเจ้าฟ้าศรีรัตนนารีจึงทรงสถาปนามหาวิทยาลัยแห่งนี้ขึ้น เพื่อทำหน้าที่เปรียบเสมือน “ร่มไม้ใหญ่” ที่มิได้ยืนต้านพายุ แต่เปิดพื้นที่ให้ผู้คนได้หยุดพัก ตั้งหลัก และเลือกทิศทางเดินของตนเองด้วยสติและปัญญา</p>
+            </div>
+          </details>
+          <details class="about-timeline__item">
+            <summary>
+              <span class="about-timeline__number" aria-hidden="true">03</span>
+              <span class="about-timeline__label">
+                <strong>การสถาปนาเป็นมหาวิทยาลัยลำดับที่สอง</strong>
+                <span>พื้นที่รอยต่อระหว่างเมืองหลวงกับชนบท</span>
+              </span>
+              <span class="about-timeline__toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="about-timeline__content">
+              <p>ในขณะที่มหาวิทยาลัยแห่งแรกในยุคสมัยนั้นทำหน้าที่เป็นเวทีหลักทางความคิด การเมือง และการเปลี่ยนผ่านระบอบ มหาวิทยาลัยร่มนารีจึงถูกสถาปนาขึ้นในฐานะมหาวิทยาลัยลำดับที่สองของประเทศ โดยเลือกปักหลัก ณ จังหวัดนนทบุรี (ย่านงามวงศ์วาน) ซึ่งในเวลานั้นถือเป็นพื้นที่รอยต่อสำคัญระหว่างเมืองหลวงกับชนบท นนทบุรีจึงเปรียบเสมือน “เขตปลอดภัยทางการเมือง” ที่ห่างไกลจากแรงปะทะของอุดมการณ์เข้มข้นในศูนย์กลางกรุงเทพฯ แต่ยังคงอยู่ใกล้ชิดพอที่จะรับรู้และขับเคลื่อนความเปลี่ยนแปลงของสังคม</p>
+            </div>
+          </details>
+          <details class="about-timeline__item">
+            <summary>
+              <span class="about-timeline__number" aria-hidden="true">04</span>
+              <span class="about-timeline__label">
+                <strong>การจัดการศึกษาและอัตลักษณ์ด้านนิติศาสตร์</strong>
+                <span>เรียนรู้กฎหมายควบคู่กับความเมตตาและความเข้าใจผู้อื่น</span>
+              </span>
+              <span class="about-timeline__toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="about-timeline__content">
+              <p>ตั้งแต่อดีตจนถึงปัจจุบัน มหาวิทยาลัยร่มนารีได้จัดการศึกษาหลากแขนงเพื่อตอบสนองการพัฒนาประเทศ โดยเฉพาะคณะนิติศาสตร์ ซึ่งถือเป็นสาขาวิชาหลักอันโดดเด่นและได้รับการยกย่องในวงวิชาการ มหาวิทยาลัยได้หล่อหลอมให้นักศึกษานิติศาสตร์มิได้เรียนรู้เพียงตัวบทกฎหมาย แต่ต้องเข้าใจถึง “จิตวิญญาณแห่งความเมตตา” รู้จักคิดถึงความทุกข์ยากของผู้อื่น และพร้อมกางร่มเงาโอบอุ้มประชาชนโดยไม่กักขังตนเองไว้ในความเห็นแก่ตัว</p>
+            </div>
+          </details>
+          <details class="about-timeline__item">
+            <summary>
+              <span class="about-timeline__number" aria-hidden="true">05</span>
+              <span class="about-timeline__label">
+                <strong>เกียรติภูมิ 88 ปีและก้าวสู่อนาคต</strong>
+                <span>ยึดมั่นในพระปณิธานและพร้อมรับใช้สังคม</span>
+              </span>
+              <span class="about-timeline__toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="about-timeline__content">
+              <p>จนถึงปัจจุบัน มหาวิทยาลัยร่มนารีได้เดินทางเข้าสู่วาระครบรอบ 88 ปีแห่งการสถาปนา โดยยังคงยึดมั่นในพระปณิธานของสมเด็จเจ้าฟ้าศรีรัตนนารีอย่างมั่นคง ด้วยการครองอันดับ 2 ด้านความเป็นเลิศทางอุดมการณ์ ที่มีบทบาทสำคัญในการส่งเสริมประชาธิปไตย ความเสมอภาค และความยุติธรรมในสังคม</p>
+              <p>ชาวร่มนารีทุกคนยังคงพร้อมที่จะขับเคลื่อนสถาบันแห่งนี้ให้เป็นที่พึ่งพิงของประชาชน ธำรงไว้ซึ่งหลักนิติธรรม และผลิตบัณฑิตผู้เปี่ยมด้วยความรู้ ความรับผิดชอบ และจิตสำนึกต่อสังคม เพื่อก้าวไปข้างหน้าอย่างภาคภูมิใต้ร่มเงาแห่งปัญญาและธรรมะสืบไป</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
   </main>
+  <div class="about-copy-toast" id="colorCopyToast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 </body>
 </html>ห

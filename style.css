@@ -830,16 +830,16 @@ footer .button {
     text-align: center;
   }
 }
-/* จอกว้าง (≥ 768px): เมนูข้อความปกติ ไม่มีขีดสามขีด */
-@media (min-width: 768px) {
+/* ใช้เมนูเต็มรูปแบบเมื่อมีพื้นที่พอสำหรับแถบนำทาง */
+@media (min-width: 1024px) {
   .site-header .menu-toggle,
   .site-header .mobile-menu { display: none !important; }
 
   .site-header .hidden-menu { display: flex; }
 }
 
-/* จอแคบ (< 768px): ซ่อนเมนูข้อความกับปุ่มสมัครบนแถบ ใช้ขีดสามขีดแทน */
-@media (max-width: 767.98px) {
+/* แท็บเล็ตแนวตั้งและจอเล็กใช้เมนูย่อเพื่อไม่ให้แถบนำทางเบียดกัน */
+@media (max-width: 1023.98px) {
   .site-header .hidden-menu,
   .site-header .apply-button { display: none !important; }
 }
@@ -1388,4 +1388,136 @@ footer .button {
   color: #165d5a;
   font-weight: 700;
   text-align: right;
+}
+
+.site-footer {
+  padding: 28px 20px;
+  color: #243b2b;
+  background: #73df6e;
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: 16px;
+  width: min(100%, 1040px);
+  margin: 0 auto;
+}
+
+.site-footer__heading {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.site-footer__contacts {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__contact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-footer__icon {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  color: #165d5a;
+}
+
+.site-footer__text {
+  display: grid;
+  gap: 1px;
+}
+
+.site-footer__platform {
+  font-size: .78rem;
+  line-height: 1.3;
+  opacity: .8;
+}
+
+.site-footer__name {
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.site-footer__apply {
+  justify-self: start;
+  padding: 9px 16px;
+  color: #fff;
+  background: #165d5a;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-footer__apply:hover {
+  background: #123f3c;
+}
+
+.page-jump-controls {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 100;
+  display: grid;
+  gap: 8px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+}
+
+.page-jump-controls.is-visible {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.page-jump-button {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  place-items: center;
+  color: #fff;
+  background: #165d5a;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 3px 12px rgb(0 0 0 / 18%);
+  cursor: pointer;
+}
+
+.page-jump-button:hover {
+  background: #123f3c;
+}
+
+.page-jump-button:focus-visible,
+.site-footer__apply:focus-visible {
+  outline: 3px solid #123f3c;
+  outline-offset: 3px;
+}
+
+.page-jump-button svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-jump-controls {
+    transition: none;
+  }
 }

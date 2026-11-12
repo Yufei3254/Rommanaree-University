@@ -77,7 +77,126 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeScrollReveal();
     initializeHeroCarousel();
     initializeInteractiveHighlights();
+    initializeUniversityColorCopy();
+    initializeSiteFooter();
+    initializePageJumpControls();
 });
+
+function initializeSiteFooter() {
+    const existingFooter = document.querySelector('body > footer');
+    if (existingFooter) existingFooter.remove();
+
+    const footer = document.createElement('footer');
+    footer.className = 'site-footer';
+    footer.innerHTML = `
+        <div class="site-footer__inner">
+            <h2 class="site-footer__heading">ติดต่อเรา</h2>
+            <ul class="site-footer__contacts" aria-label="ช่องทางติดต่อ">
+                <li class="site-footer__contact">
+                    <svg class="site-footer__icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" fill="currentColor"></circle>
+                        <path d="M13.3 20v-6h2l.3-2.2h-2.3v-1.4c0-.7.2-1 1-1h1.3V7.4c-.2 0-.9-.1-1.7-.1-1.8 0-3 1.1-3 3.1v1.4h-2v2.2h2v6z" fill="#73df6e"></path>
+                    </svg>
+                    <span class="site-footer__text">
+                        <span class="site-footer__platform">Facebook</span>
+                        <span class="site-footer__name">Rommanaree University</span>
+                    </span>
+                </li>
+                <li class="site-footer__contact">
+                    <svg class="site-footer__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect>
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <circle cx="17.7" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                    <span class="site-footer__text">
+                        <span class="site-footer__platform">Instagram</span>
+                        <span class="site-footer__name">rommanaree.arttag.official_</span>
+                    </span>
+                </li>
+                <li class="site-footer__contact">
+                    <svg class="site-footer__icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M19.4 5.5a18 18 0 0 0-4.4-1.4l-.6 1.2a16 16 0 0 0-4.8 0L9 4.1a18 18 0 0 0-4.4 1.4C1.8 9.7 1 13.7 1.4 17.7a18 18 0 0 0 5.4 2.7l1.2-2a11 11 0 0 1-1.9-.9l.5-.4a13 13 0 0 0 11.1 0l.5.4a11 11 0 0 1-1.9.9l1.2 2a18 18 0 0 0 5.4-2.7c.5-4.7-.8-8.6-3.5-12.2ZM8.8 14.7c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.4 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"></path>
+                    </svg>
+                    <span class="site-footer__text">
+                        <span class="site-footer__platform">Discord</span>
+                        <span class="site-footer__name">Rommanaree University</span>
+                    </span>
+                </li>
+            </ul>
+            <a class="site-footer__apply" href="application.html">สมัครเข้าศึกษา</a>
+        </div>
+    `;
+    document.body.append(footer);
+}
+
+function initializePageJumpControls() {
+    const controls = document.createElement('div');
+    controls.className = 'page-jump-controls';
+    controls.setAttribute('role', 'group');
+    controls.setAttribute('aria-label', 'เลื่อนหน้าอย่างรวดเร็ว');
+    controls.setAttribute('aria-hidden', 'true');
+    controls.innerHTML = `
+        <button class="page-jump-button" type="button" aria-label="กลับไปด้านบน" title="กลับไปด้านบน">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg>
+        </button>
+    `;
+    document.body.append(controls);
+
+    const button = controls.querySelector('button');
+    const scrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    let scrollAction = 'up';
+    let previousScrollY = window.scrollY;
+    let programmaticScroll = false;
+    let programmaticScrollTimer;
+
+    function setScrollAction(action) {
+        scrollAction = action;
+        const goingUp = action === 'up';
+        button.setAttribute('aria-label', goingUp ? 'กลับไปด้านบน' : 'เลื่อนไปท้ายหน้า');
+        button.title = goingUp ? 'กลับไปด้านบน' : 'ไปท้ายหน้า';
+        button.innerHTML = goingUp
+            ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg>'
+            : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"></path></svg>';
+    }
+
+    button.addEventListener('click', () => {
+        programmaticScroll = true;
+        window.clearTimeout(programmaticScrollTimer);
+        programmaticScrollTimer = window.setTimeout(() => {
+            programmaticScroll = false;
+        }, 2500);
+
+        const pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        window.scrollTo({
+            top: scrollAction === 'up' ? 0 : pageHeight,
+            behavior: scrollBehavior
+        });
+    });
+
+    const updateVisibility = () => {
+        const currentScrollY = window.scrollY;
+        if (!programmaticScroll && currentScrollY !== previousScrollY) {
+            setScrollAction(currentScrollY > previousScrollY ? 'up' : 'down');
+        }
+        previousScrollY = currentScrollY;
+
+        const isVisible = window.scrollY > 120;
+        controls.classList.toggle('is-visible', isVisible);
+        controls.setAttribute('aria-hidden', String(!isVisible));
+    };
+
+    window.addEventListener('scroll', () => {
+        if (programmaticScroll) {
+            window.clearTimeout(programmaticScrollTimer);
+            programmaticScrollTimer = window.setTimeout(() => {
+                programmaticScroll = false;
+            }, 250);
+        }
+        updateVisibility();
+    }, { passive: true });
+    window.addEventListener('resize', updateVisibility);
+    updateVisibility();
+}
 
 function initializeAnnouncementNotification() {
     const bell = document.getElementById('announcementBell');
@@ -119,6 +238,45 @@ function initializeInteractiveHighlights() {
             const isHighlighted = highlight.getAttribute('aria-pressed') === 'true';
             highlight.setAttribute('aria-pressed', String(!isHighlighted));
         });
+    });
+}
+
+function initializeUniversityColorCopy() {
+    const copyButton = document.getElementById('universityColorCopy');
+    const toast = document.getElementById('colorCopyToast');
+    if (!copyButton || !toast) return;
+
+    let toastTimer;
+    function showToast(message) {
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.hidden = false;
+        toastTimer = window.setTimeout(() => {
+            toast.hidden = true;
+        }, 2400);
+    }
+
+    copyButton.addEventListener('click', async () => {
+        const color = copyButton.dataset.copy;
+        if (!color) {
+            console.error('The university color button is missing its copy value.');
+            showToast('ไม่พบโค้ดสีสำหรับคัดลอก');
+            return;
+        }
+
+        if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+            console.error('Clipboard API is unavailable in this browser context.');
+            showToast(`คัดลอกไม่สำเร็จ กรุณาคัดลอก ${color}`);
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(color);
+            showToast(`คัดลอกโค้ดสี ${color} แล้ว`);
+        } catch (error) {
+            console.error('Unable to copy the university color:', error);
+            showToast(`คัดลอกไม่สำเร็จ กรุณาคัดลอก ${color}`);
+        }
     });
 }
 
@@ -181,7 +339,7 @@ function initializeScrollReveal() {
         return;
     }
 
-    const revealTargets = [...document.querySelectorAll('section, figure.university-image')];
+    const revealTargets = [...document.querySelectorAll('section, figure.university-image, .about-history__quote')];
     document.querySelectorAll('main').forEach((main) => {
         if (!main.querySelector('section')) {
             revealTargets.push(main);
