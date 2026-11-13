@@ -46,6 +46,17 @@ body {
   margin-left: auto;
 }
 
+.nav-home {
+  color: inherit;
+  text-decoration: none;
+  transition: color .25s ease;
+}
+
+.nav-home:hover,
+.nav-home:focus-visible {
+  color: #fff01a;
+}
+
 .site-header .menu-toggle {
   display: inline-flex;
   align-items: center;
@@ -106,11 +117,16 @@ body {
 
 .mobile-dropdown > summary,
 .mobile-dropdown__menu a,
+.mobile-menu__home,
 .mobile-menu__apply {
   display: block;
   padding: 12px 14px;
   color: #f3f4f6;
   text-decoration: none;
+}
+
+.mobile-menu__home {
+  border-radius: 10px;
 }
 
 .mobile-dropdown > summary {
@@ -142,6 +158,7 @@ body {
 
 .mobile-dropdown > summary:hover,
 .mobile-dropdown__menu a:hover,
+.mobile-menu__home:hover,
 .mobile-menu__apply:hover {
   color: #8bd1b1;
 }
