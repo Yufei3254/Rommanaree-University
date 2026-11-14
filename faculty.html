@@ -137,6 +137,7 @@
 
     .fac-panel__body { padding: clamp(22px, 4vw, 40px) clamp(20px, 4vw, 44px) clamp(26px, 4vw, 44px); }
     .fac-panel__desc { max-width: 62ch; margin: 0; color: var(--ink-soft); line-height: 1.9; white-space: pre-line; }
+    .fac-panel__desc--nowrap { max-width: 100%; overflow-x: auto; white-space: nowrap; }
     .fac-panel__desc + .fac-panel__desc { margin-top: 12px; }
     .fac-soon { margin: 0; color: var(--ink-faint); line-height: 1.8; }
 
@@ -161,6 +162,7 @@
     .major-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; }
     .major-name strong { color: var(--ink); font-size: 1.04rem; font-weight: 600; line-height: 1.6; }
     .major-name span { color: var(--ink-faint); font-size: .9rem; }
+    .major-name--nowrap strong, .major-name--nowrap span { white-space: nowrap; }
     .major-note { max-width: 62ch; margin: 6px 0 0; color: var(--ink-soft); line-height: 1.8; white-space: pre-line; }
     .major-extra { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 4px 12px; margin: 10px 0 0; font-size: .92rem; line-height: 1.75; }
     .major-extra dt { color: var(--green); font-weight: 600; }
@@ -201,7 +203,7 @@
     }
   </style>
 </head>
-<body>
+<body data-bachelor-notice="true">
   <!-- ===== NAVBAR ===== -->
   <header class="site-header">
     <div class="w-full px-4 md:px-6">
@@ -325,11 +327,13 @@
          id      ชื่อสำหรับลิงก์ เช่น faculty.html#law
          th, en  ชื่อไทย / อังกฤษ
          desc    (ไม่บังคับ) คำอธิบายคณะ  ขึ้นบรรทัดใหม่ด้วย \n
+         descNoWrap (ไม่บังคับ) true เพื่อให้คำอธิบายอยู่บรรทัดเดียว
          learn   (ไม่บังคับ) ['เรียนเรื่องที่ 1', 'เรียนเรื่องที่ 2']
          majors  [ [ไทย, อังกฤษ, {ข้อมูลเสริม}], ... ]
+         showMajors (ไม่บังคับ) true เพื่อแสดงลิสต์ แม้มีหลักสูตรเดียว
 
        ระดับสาขา (ช่องที่ 3 เป็นอ็อบเจกต์ ไม่ใส่ก็ได้):
-         { note: 'คำอธิบาย', subs: ['สาขาย่อย'], learn: ['เรียนอะไร'] }
+         { note: 'คำอธิบาย', subs: ['สาขาย่อย'], learn: ['เรียนอะไร'], nowrap: true }
 
        หมวดหมู่ใหญ่: แก้ที่ CATEGORIES ด้านล่างข้อมูลคณะ
        ========================================================== */
@@ -354,7 +358,7 @@
       ]},
       { id: 'commerce', th: 'คณะพาณิชยศาสตร์และการบัญชี', en: 'Faculty of Commerce and Accountancy',
         desc: '', learn: [], majors: [
-        ['สาขาการบริการ พาณิชยการและธุรกิจ', 'Services, Commerce, and Business'],
+        ['สาขาวิชาการบริการ พาณิชยการและธุรกิจ', 'Services, Commerce, and Business'],
         ['การบัญชี', 'Accounting'],
         ['บริหารธุรกิจ', 'Business Administration'],
         ['ระบบสารสนเทศ', 'Information Systems'],
@@ -365,8 +369,8 @@
         ['การจัดการสื่อสาร', 'Communication Management'],
       ]},
       { id: 'dentistry', th: 'คณะทันตแพทยศาสตร์', en: 'Faculty of Dentistry',
-        desc: '', learn: [], majors: [
-        ['ทันตแพทยศาสตร์', 'Dentistry'],
+        desc: '', showMajors: true, learn: [], majors: [
+        ['ทันตแพทยศาสตร์', 'Dentistry', { nowrap: true }],
       ]},
       { id: 'economics', th: 'คณะเศรษฐศาสตร์', en: 'Faculty of Economics',
         desc: '', learn: [], majors: [
@@ -404,13 +408,16 @@
         ['อาชญาวิทยาและนิติวิทยาศาสตร์', 'Criminology and Forensic Science'],
       ]},
       { id: 'medicine', th: 'คณะแพทยศาสตร์', en: 'Faculty of Medicine',
-        desc: '', learn: [], majors: [
-        ['แพทยศาสตรบัณฑิต', 'Bachelor of Medicine'],
+        desc: 'หมายเหตุ: หลักสูตรปริญญาตรีไม่มีการเลือกสาขาตั้งแต่ชั้นปีที่ 1 จึงมีเพียงหลักสูตรเดียว',
+        descNoWrap: true,
+        showMajors: true,
+        learn: [], majors: [
+        ['แพทยศาสตร์บัณฑิต', 'Bachelor of Medicine'],
       ]},
       { id: 'pharmacy', th: 'คณะเภสัชศาสตร์', en: 'Faculty of Pharmaceutical Sciences',
         desc: '', learn: [], majors: [
-        ['เภสัชกรรมอุตสาหการ', 'Industrial Pharmacy'],
-        ['การบริบาลทางเภสัชกรรม', 'Pharmaceutical Care'],
+        ['สาขาวิชาการบริบาลทางเภสัชกรรม', 'Pharmaceutical Care'],
+        ['สาขาวิชาวิทยาศาสตร์เภสัชกรรม', 'Pharmaceutical Sciences'],
       ]},
       { id: 'political-science', th: 'คณะรัฐศาสตร์', en: 'Faculty of Political Science',
         desc: '', learn: [], majors: [
@@ -435,8 +442,8 @@
         ['ประวัติศาสตร์ท้องถิ่น', 'Local History'],
       ]},
       { id: 'veterinary', th: 'คณะสัตวแพทยศาสตร์', en: 'Faculty of Veterinary Science',
-        desc: '', learn: [], majors: [
-        ['สัตวแพทยศาสตรบัณฑิต', 'Doctor of Veterinary Medicine'],
+        desc: '', showMajors: true, learn: [], majors: [
+        ['สัตวแพทยศาสตร์บัณฑิต', 'Doctor of Veterinary Medicine', { nowrap: true }],
       ]},
       { id: 'decorative-arts', th: 'คณะมัณฑนศิลป์', en: 'Faculty of Decorative Arts',
         desc: '', learn: [], majors: [
@@ -514,7 +521,7 @@
       if ((extra.subs || []).length) rows.push(`<dt>สาขาย่อย</dt><dd>${extra.subs.map(esc).join(', ')}</dd>`);
       if ((extra.learn || []).length) rows.push(`<dt>เรียนอะไรบ้าง</dt><dd>${list(extra.learn)}</dd>`);
       return `<li${majorMatches(major, query) ? ' class="is-match"' : ''}>
-        <div class="major-name">
+        <div class="major-name${extra.nowrap ? ' major-name--nowrap' : ''}">
           <strong>${esc(th)}</strong>
           ${en ? `<span>${esc(en)}</span>` : ''}
         </div>
@@ -549,8 +556,8 @@
       panelEl.classList.remove('is-swapping');
       if (animate) { void panelEl.offsetWidth; panelEl.classList.add('is-swapping'); }
 
-      // คณะที่มีสาขาเดียว (เช่น แพทย์ ทันตแพทย์ สัตวแพทย์) ไม่ต้องมีหัวข้อ "สาขาที่เปิดสอน"
-      const single = f.majors.length === 1;
+      // คณะที่มีสาขาเดียวไม่ต้องมีหัวข้อ "สาขาที่เปิดสอน" เว้นแต่กำหนด showMajors
+      const single = f.majors.length === 1 && !f.showMajors;
       const m0 = single ? f.majors[0] : null;
       const x0 = (m0 && m0[2]) || {};
       const learnAll = [...(f.learn || []), ...(single ? (x0.learn || []) : [])];
@@ -564,7 +571,7 @@
           ${single ? `<p class="fac-panel__program">หลักสูตร ${esc(m0[0])}${m0[1] ? ` (${esc(m0[1])})` : ''}</p>` : ''}
         </div>
         <div class="fac-panel__body">
-          ${f.desc ? `<p class="fac-panel__desc">${esc(f.desc)}</p>` : ''}
+          ${f.desc ? `<p class="fac-panel__desc${f.descNoWrap ? ' fac-panel__desc--nowrap' : ''}">${esc(f.desc)}</p>` : ''}
           ${single && x0.note ? `<p class="fac-panel__desc">${esc(x0.note)}</p>` : ''}
           ${single && (x0.subs || []).length
             ? `<div class="fac-block"><h3>สาขาย่อย</h3><p class="fac-subs">${x0.subs.map(esc).join(', ')}</p></div>` : ''}

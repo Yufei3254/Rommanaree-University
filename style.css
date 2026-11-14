@@ -10,6 +10,69 @@ body {
   color: #111827;
 }
 
+.bachelor-notice {
+  width: min(92vw, 640px);
+  max-width: calc(100vw - 32px);
+  max-height: 90vh;
+  padding: 0;
+  overflow-y: auto;
+  color: #1f2937;
+  background: #fff;
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .35);
+}
+
+.bachelor-notice::backdrop {
+  background: rgba(0, 0, 0, .68);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+}
+
+.bachelor-notice__content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px 24px 24px;
+}
+
+.bachelor-notice__image {
+  display: block;
+  width: 100%;
+  max-height: 42vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.bachelor-notice__message {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.8;
+  text-indent: 2em;
+}
+
+.bachelor-notice__button {
+  align-self: center;
+  min-height: 48px;
+  padding: 10px 24px;
+  color: #fff;
+  background: #165d5a;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bachelor-notice__button:hover {
+  background: #0e3d3b;
+}
+
+.bachelor-notice__button:focus-visible {
+  outline: 3px solid #78c6a5;
+  outline-offset: 3px;
+}
+
 :root {
   --container-color: #165d5a;
   --white-color: #fff;
@@ -518,7 +581,7 @@ body {
 }
 
 .honors-heading {
-  margin: 0 0 24px;
+  margin: 0 0 36px;
   padding: 0 0 18px;
   border-bottom: 2px solid #8bd1b1;
 }
@@ -536,7 +599,7 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  margin: 0 0 30px;
+  margin: 0 0 42px;
   border-radius: 16px;
   box-shadow: 0 12px 30px rgb(8 35 34 / 12%);
 }
@@ -549,6 +612,10 @@ body {
 
 .honors-article__body p {
   margin: 0 0 22px;
+}
+
+.honors-article__body > p:first-of-type {
+  text-indent: 2em;
 }
 
 .honors-article__body h2 {
@@ -1342,8 +1409,8 @@ footer .button {
 
 @media (max-width: 480px) {
   .info-page { padding-right: 14px; padding-left: 14px; }
-  .honors-heading { margin-bottom: 18px; }
-  .honors-article__image { margin-bottom: 22px; border-radius: 12px; }
+  .honors-heading { margin-bottom: 28px; }
+  .honors-article__image { margin-bottom: 30px; border-radius: 12px; }
 }
 
 .notice-article {

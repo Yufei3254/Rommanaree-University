@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadNavigation().catch((error) => {
         console.error('Unable to load the site navigation:', error);
     });
+    initializeBachelorNotice();
     initializeScrollReveal();
     initializeHeroCarousel();
     initializeInteractiveHighlights();
@@ -81,6 +82,47 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSiteFooter();
     initializePageJumpControls();
 });
+
+function initializeBachelorNotice() {
+    if (document.body.dataset.bachelorNotice !== 'true') return;
+
+    const dismissalKey = 'bachelorNoticeDismissedUntil';
+    const storedExpiry = localStorage.getItem(dismissalKey);
+    if (storedExpiry !== null) {
+        const expiry = Number(storedExpiry);
+        if (Number.isFinite(expiry) && expiry > Date.now()) return;
+        localStorage.removeItem(dismissalKey);
+    }
+
+    const dialog = document.createElement('dialog');
+    dialog.className = 'bachelor-notice';
+    dialog.setAttribute('aria-label', 'ประกาศระดับการศึกษาที่เปิดรับ');
+    dialog.innerHTML = `
+        <div class="bachelor-notice__content">
+            <img class="bachelor-notice__image"
+                 src="assets/ร่มนารี/Bachelor.png"
+                 alt="ประกาศเปิดรับตัวละครระดับปริญญาตรีเท่านั้น">
+            <p class="bachelor-notice__message">
+                เนื่องจากพบเห็นลูกแท็กบางส่วนสร้างตัวละครในระดับปริญญาโทและเอก
+                ทางทีมงานจึงขออนุญาตแจ้งให้ทราบอีกครั้งว่า ขณะนี้ทางแท็กเปิดรับเฉพาะตัวละครในระดับปริญญาตรีเท่านั้น
+                ทั้งนี้เพื่อความสะดวกในการควบคุมดูแลภาพรวมของแท็กให้เป็นระเบียบเรียบร้อย
+                ส่วนในระดับปริญญาโทและเอกยังไม่มีแผนเปิดรับเพิ่มเติมในขณะนี้
+                ขอบคุณทุกท่านที่ให้ความสนใจและให้ความร่วมมือ
+            </p>
+            <button class="bachelor-notice__button" type="button" autofocus>
+                รับทราบและเข้าสู่เว็บไซต์
+            </button>
+        </div>`;
+
+    const acknowledgeButton = dialog.querySelector('.bachelor-notice__button');
+    acknowledgeButton.addEventListener('click', () => {
+        localStorage.setItem(dismissalKey, String(Date.now() + 15 * 60 * 1000));
+        dialog.close();
+    });
+    dialog.addEventListener('close', () => dialog.remove(), { once: true });
+    document.body.append(dialog);
+    dialog.showModal();
+}
 
 function initializeSiteFooter() {
     const existingFooter = document.querySelector('body > footer');
