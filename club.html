@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rommanaree University | เร็ว ๆ นี้</title>
+  <title>ชมรม | Rommanaree University</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="script.js" defer></script>
@@ -19,83 +19,129 @@
     }
     .font-heading { font-family: 'Noto Serif Thai', serif; }
 
-    /* ---------- Coming Soon ---------- */
-    .cs {
-      position: relative;
-      display: grid;
+    .clubs {
       flex: 1;
-      padding: 24px;
-      place-items: center;
-      overflow: hidden;
+      padding: clamp(32px, 6vw, 72px) 20px;
       color: #173332;
       background: #f4f7f6;
     }
 
-    .cs::before,
-    .cs::after {
-      position: absolute;
-      content: "";
-      border: 1px solid #165d5a;
-      border-radius: 50%;
-      opacity: .12;
-      pointer-events: none;
+    .clubs__inner {
+      width: min(100%, 1100px);
+      margin: 0 auto;
     }
-    .cs::before { width: 520px; height: 520px; top: -200px; right: -140px; }
-    .cs::after  { width: 340px; height: 340px; bottom: -150px; left: -90px; }
 
-    .cs__inner {
-      position: relative;
-      z-index: 1;
-      max-width: 560px;
+    .clubs__intro {
+      margin-bottom: 32px;
       text-align: center;
     }
 
-    .cs__eyebrow {
-      margin: 0 0 18px;
+    .clubs__eyebrow {
+      margin: 0 0 8px;
       color: #165d5a;
       font-size: .85rem;
-      font-weight: 500;
-      letter-spacing: .28em;
+      font-weight: 600;
+      letter-spacing: .16em;
     }
 
-    .cs__title {
+    .clubs__title {
       margin: 0;
       color: #123f3c;
       font-family: 'Noto Serif Thai', serif;
-      font-size: clamp(3rem, 11vw, 5.5rem);
-      font-weight: 600;
-      line-height: 1.3;
+      font-size: clamp(2rem, 6vw, 3.25rem);
+      line-height: 1.4;
     }
 
-    .cs__rule {
-      display: block;
-      width: 56px;
-      height: 2px;
-      margin: 26px auto;
-      background: #165d5a;
-    }
-
-    .cs__text {
-      margin: 0 0 34px;
+    .clubs__description {
+      margin: 10px 0 0;
       color: #647674;
+      line-height: 1.8;
+    }
+
+    .clubs__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .club-category {
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid #e0e9e6;
+      border-radius: 8px;
+    }
+
+    .club-category__title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 64px;
+      margin: 0;
+      padding: 14px 18px;
+      color: #fff;
+      background: linear-gradient(120deg, #165d5a, #0e3d3b);
       font-size: 1.05rem;
-      line-height: 1.9;
+      font-weight: 600;
+      line-height: 1.6;
     }
 
-    .cs__link {
-      display: inline-block;
-      padding: 11px 28px;
+    .club-category__number {
+      display: grid;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      place-items: center;
       color: #165d5a;
-      border: 1px solid #165d5a;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: background-color .2s ease, color .2s ease;
+      background: #fff;
+      border-radius: 50%;
+      font-size: .9rem;
+      font-weight: 700;
     }
-    .cs__link:hover { color: #fff; background: #165d5a; }
 
-    @media (max-height: 560px) {
-      .cs__rule { margin: 16px auto; }
-      .cs__text { margin-bottom: 20px; }
+    .club-category__list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 14px;
+      list-style: none;
+    }
+
+    .club-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      padding: 10px 13px;
+      color: #244441;
+      border-bottom: 1px solid #edf2f0;
+      transition: background-color .18s ease, color .18s ease;
+    }
+
+    .club-item:last-child {
+      border-bottom: 0;
+    }
+
+    .club-item::before {
+      content: "•";
+      flex: 0 0 auto;
+      color: #165d5a;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .club-item:hover,
+    .club-item:active {
+      color: #123f3c;
+      background: #e8f3ef;
+    }
+
+    @media (max-width: 720px) {
+      .clubs__grid { grid-template-columns: 1fr; }
+      .clubs__intro { margin-bottom: 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .club-item { transition: none; }
     }
   </style>
 </head>
@@ -140,16 +186,88 @@
     </div>
   </header>
 
-  <main class="cs">
-    <div class="cs__inner">
-      <p class="cs__eyebrow">ROMMANAREE UNIVERSITY</p>
-      <h1 class="cs__title">เร็ว ๆ นี้</h1>
-      <span class="cs__rule" aria-hidden="true"></span>
-      <p class="cs__text">
-        เรากำลังเตรียมเนื้อหาหน้านี้อยู่<br>
-        ขอบคุณที่รอ แล้วพบกันเร็ว ๆ นี้
-      </p>
-      <a href="index.html" class="cs__link">กลับหน้าหลัก</a>
+  <main class="clubs">
+    <div class="clubs__inner">
+      <header class="clubs__intro">
+        <p class="clubs__eyebrow">ROMMANAREE UNIVERSITY</p>
+        <h1 class="clubs__title">ชมรมของเรา</h1>
+        <p class="clubs__description">เลือกชมรมที่สนใจ แล้วมาค้นหากิจกรรมที่ใช่ไปด้วยกัน</p>
+      </header>
+
+      <div class="clubs__grid">
+        <section class="club-category" aria-labelledby="club-category-1">
+          <h2 class="club-category__title" id="club-category-1"><span class="club-category__number">1</span>หมวดพุทธศาสตร์และวัฒนธรรม</h2>
+          <ul class="club-category__list">
+            <li class="club-item">ชมรมจิตอาสาปลูกป่า</li>
+          </ul>
+        </section>
+
+        <section class="club-category" aria-labelledby="club-category-2">
+          <h2 class="club-category__title" id="club-category-2"><span class="club-category__number">2</span>หมวดกีฬาและศิลปะการต่อสู้</h2>
+          <ul class="club-category__list">
+            <li class="club-item">ชมรมมวยไทยและศิลปะป้องกันตัว</li>
+            <li class="club-item">ชมรม E-Sports</li>
+            <li class="club-item">ชมรมเกมส์กระดาน</li>
+            <li class="club-item">ชมรมกรีฑาและเอ็กซ์ตรีมสปอร์ต</li>
+            <li class="club-item">ชมรมแบดมินตัน</li>
+            <li class="club-item">ชมรมบาสเกตบอล</li>
+            <li class="club-item">ชมรมเปตอง</li>
+            <li class="club-item">ชมรมฟันดาบสากล</li>
+            <li class="club-item">ชมรมฟุตบอล</li>
+            <li class="club-item">ชมรมวอลเลย์บอล</li>
+            <li class="club-item">ชมรมคาราเต้</li>
+            <li class="club-item">ชมรมยูโด</li>
+          </ul>
+        </section>
+
+        <section class="club-category" aria-labelledby="club-category-3">
+          <h2 class="club-category__title" id="club-category-3"><span class="club-category__number">3</span>หมวดวิชาการและการเรียนรู้</h2>
+          <ul class="club-category__list">
+            <li class="club-item">ชมรมสิ่งแวดล้อมและนวัตกรรมสีเขียว</li>
+            <li class="club-item">ชมรมสืบสอบวิทยาศาสตร์และเทคโนโลยี</li>
+            <li class="club-item">ชมรมการเงินการลงทุนรุ่นใหม่</li>
+          </ul>
+        </section>
+
+        <section class="club-category" aria-labelledby="club-category-4">
+          <h2 class="club-category__title" id="club-category-4"><span class="club-category__number">4</span>หมวดภาษา วรรณกรรม และการสื่อสาร</h2>
+          <ul class="club-category__list">
+            <li class="club-item">ชมรมวรรณกรรม</li>
+            <li class="club-item">ชมรมสโมสรโต้วาทิน</li>
+            <li class="club-item">ชมรมภาษาและแลกเปลี่ยนวัฒนธรรมสากล</li>
+            <li class="club-item">ชมรมภาษาและวรรณศิลป์</li>
+          </ul>
+        </section>
+
+        <section class="club-category" aria-labelledby="club-category-5">
+          <h2 class="club-category__title" id="club-category-5"><span class="club-category__number">5</span>หมวดสื่อ ภาพยนตร์ และการแสดง</h2>
+          <ul class="club-category__list">
+            <li class="club-item">ชมรมคนภาพยนตร์</li>
+            <li class="club-item">ชมรมละคร</li>
+            <li class="club-item">ชมรมสื่อดิจิทัล</li>
+          </ul>
+        </section>
+
+        <section class="club-category" aria-labelledby="club-category-6">
+          <h2 class="club-category__title" id="club-category-6"><span class="club-category__number">6</span>หมวดศิลปะและการออกแบบ</h2>
+          <ul class="club-category__list">
+            <li class="club-item">ชมรมจิตรกรรม</li>
+            <li class="club-item">ชมรมดิจิทัลอาร์ต</li>
+            <li class="club-item">ชมรมออกแบบงานคราฟต์</li>
+            <li class="club-item">ชมรมการถ่ายภาพ</li>
+          </ul>
+        </section>
+
+        <section class="club-category" aria-labelledby="club-category-7">
+          <h2 class="club-category__title" id="club-category-7"><span class="club-category__number">7</span>หมวดดนตรีและนาฏศิลป์</h2>
+          <ul class="club-category__list">
+            <li class="club-item">ชมรมดนตรีสากล</li>
+            <li class="club-item">ชมรมนาฏศิลป์ดนตรีไทย</li>
+            <li class="club-item">ชมรมการเต้นสตรีทแดนซ์</li>
+            <li class="club-item">ชมรมประสานเสียง</li>
+          </ul>
+        </section>
+      </div>
     </div>
   </main>
 </body>
