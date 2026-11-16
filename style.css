@@ -433,6 +433,47 @@ body {
   font-weight: 700;
 }
 
+.notification-card {
+  display: grid;
+  gap: 5px;
+  margin-top: 12px;
+  padding: 14px;
+  color: #173332 !important;
+  background: #f4f8f6;
+  border: 1px solid #dbe9e4;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.notification-popover a.notification-card:hover {
+  background: #e8f3ef;
+  border-color: #9dc9b8;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.notification-card:focus-visible {
+  outline: 3px solid #78b99f;
+  outline-offset: 2px;
+}
+
+.notification-card__eyebrow,
+.notification-card__action {
+  color: #165d5a;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.notification-card__title {
+  font-size: 1rem;
+}
+
+.notification-card__description {
+  color: #536761;
+  font-size: .9rem;
+}
+
 .notification-popover p {
   margin: 8px 0 14px;
   line-height: 1.6;
@@ -631,7 +672,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .notification-bell__dot { animation: none; }
   .home-feature-card img,
-  .interactive-highlight { transition: none; }
+  .interactive-highlight,
+  .info-home-link { transition: none; }
 }
 
 .hero {
@@ -1071,6 +1113,23 @@ footer .button {
   letter-spacing: .08em;
 }
 
+.news-card__new-indicator {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 13px;
+  height: 13px;
+  background: #e11d48;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .35);
+}
+
+.news-card__new-indicator[hidden] {
+  display: none;
+}
+
 .card-info {
   padding: 20px 20px 22px;
 }
@@ -1454,6 +1513,86 @@ footer .button {
 
 .notice-article__body p {
   margin: 0 0 18px;
+}
+
+.mala-story__body > p:not(.notice-article__organization) {
+  margin-bottom: 26px;
+  line-height: 2;
+  text-indent: 2em;
+}
+
+.mala-event-note {
+  margin: 26px 0;
+  padding: 16px 18px;
+  background: #e8f3ef;
+  border-left: 4px solid #165d5a;
+  border-radius: 8px;
+}
+
+.mala-belief-note {
+  position: relative;
+  padding: 22px 24px 22px 34px;
+  background: #fbf7e9;
+  border: 1px solid #eadca8;
+  border-top: 4px solid #c5a34b;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgb(75 60 20 / 8%);
+}
+
+.mala-belief-note.is-popping {
+  animation: mala-belief-pop 260ms ease-out;
+}
+
+@keyframes mala-belief-pop {
+  0%, 100% { transform: scale(1); }
+  45% { transform: scale(1.018); }
+  75% { transform: scale(.997); }
+}
+
+.mala-belief-note::before {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  color: #b69034;
+  content: "“";
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.notice-article__body .mala-event-note p {
+  margin: 0;
+  text-indent: 0;
+}
+
+.notice-article__body .mala-event-note p.mala-event-note__title {
+  margin-bottom: 5px;
+  color: #165d5a;
+  font-weight: 700;
+}
+
+.info-home-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  color: #fff;
+  background: #165d5a;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.info-home-link:hover {
+  color: #fff;
+  background: #0e3d3b;
+  transform: translateY(-2px);
+}
+
+.info-home-link:focus-visible {
+  outline: 3px solid #78b99f;
+  outline-offset: 3px;
 }
 
 .notice-article__body ol {

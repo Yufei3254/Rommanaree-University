@@ -77,7 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeBachelorNotice();
     initializeScrollReveal();
     initializeHeroCarousel();
+    initializeNewsReadIndicator();
     initializeInteractiveHighlights();
+    initializeMalaBeliefCard();
     initializeUniversityColorCopy();
     initializeSiteFooter();
     initializePageJumpControls();
@@ -240,22 +242,57 @@ function initializePageJumpControls() {
     updateVisibility();
 }
 
+const malaRitualNewsStorageKey = 'rommanaree-news-seen-mala-ritual';
+
+function hasReadMalaRitualNews() {
+    try {
+        return localStorage.getItem(malaRitualNewsStorageKey) === 'true';
+    } catch (error) {
+        console.error('Unable to read the news status:', error);
+        return false;
+    }
+}
+
+function markMalaRitualNewsAsRead() {
+    try {
+        localStorage.setItem(malaRitualNewsStorageKey, 'true');
+        return true;
+    } catch (error) {
+        console.error('Unable to save the news status:', error);
+        return false;
+    }
+}
+
 function initializeAnnouncementNotification() {
     const bell = document.getElementById('announcementBell');
     const dot = document.getElementById('announcementBellDot');
     const notice = document.getElementById('announcementNotice');
     if (!bell || !dot || !notice) return;
 
+    function updateDot() {
+        dot.hidden = hasReadMalaRitualNews();
+    }
+
     function closeNotice() {
         notice.hidden = true;
         bell.setAttribute('aria-expanded', 'false');
     }
 
+    updateDot();
     bell.addEventListener('click', () => {
         const opening = notice.hidden;
         notice.hidden = !opening;
         bell.setAttribute('aria-expanded', String(opening));
-        if (opening) dot.hidden = true;
+    });
+
+    notice.querySelectorAll('[data-news-link="mala-ritual"]').forEach((link) => {
+        link.addEventListener('click', () => {
+            if (markMalaRitualNewsAsRead()) updateDot();
+        });
+    });
+
+    window.addEventListener('storage', (event) => {
+        if (event.key === malaRitualNewsStorageKey || event.key === null) updateDot();
     });
 
     document.addEventListener('click', (event) => {
@@ -274,12 +311,59 @@ function initializeAnnouncementNotification() {
     });
 }
 
+function initializeNewsReadIndicator() {
+    const newsCard = document.querySelector('[data-news-id="mala-ritual"]');
+    const isNewsDetail = document.body.dataset.newsDetail === 'mala-ritual';
+
+    if (!newsCard && !isNewsDetail) return;
+
+    if (isNewsDetail) markMalaRitualNewsAsRead();
+    if (!newsCard) return;
+
+    const indicator = newsCard.querySelector('.news-card__new-indicator');
+    if (!indicator) {
+        console.error('The new-news indicator is missing from the news card.');
+        return;
+    }
+
+    function updateIndicator() {
+        indicator.hidden = hasReadMalaRitualNews();
+    }
+
+    updateIndicator();
+    newsCard.querySelectorAll('a[href="welcomingactivities.html"]').forEach((link) => {
+        link.addEventListener('click', () => {
+            if (markMalaRitualNewsAsRead()) indicator.hidden = true;
+        });
+    });
+    window.addEventListener('pageshow', updateIndicator);
+    window.addEventListener('storage', (event) => {
+        if (event.key === malaRitualNewsStorageKey || event.key === null) updateIndicator();
+    });
+}
+
 function initializeInteractiveHighlights() {
     document.querySelectorAll('.interactive-highlight').forEach((highlight) => {
         highlight.addEventListener('click', () => {
             const isHighlighted = highlight.getAttribute('aria-pressed') === 'true';
             highlight.setAttribute('aria-pressed', String(!isHighlighted));
         });
+    });
+}
+
+function initializeMalaBeliefCard() {
+    const card = document.querySelector('.mala-belief-note');
+    if (!card) return;
+
+    card.addEventListener('click', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        card.classList.remove('is-popping');
+        void card.getBoundingClientRect();
+        card.classList.add('is-popping');
+    });
+
+    card.addEventListener('animationend', (event) => {
+        if (event.target === card) card.classList.remove('is-popping');
     });
 }
 
