@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeUniversityColorCopy();
     initializeSiteFooter();
     initializePageJumpControls();
+    initializeReadingProgress();
 });
 
 function initializeBachelorNotice() {
@@ -173,6 +174,41 @@ function initializeSiteFooter() {
     document.body.append(footer);
 }
 
+function initializeReadingProgress() {
+    const existingProgress = document.querySelector('.reading-progress');
+    if (existingProgress) existingProgress.remove();
+
+    const progress = document.createElement('div');
+    progress.className = 'reading-progress';
+    progress.setAttribute('role', 'progressbar');
+    progress.setAttribute('aria-label', 'ความคืบหน้าในการอ่านหน้า');
+    progress.setAttribute('aria-valuemin', '0');
+    progress.setAttribute('aria-valuemax', '100');
+    progress.setAttribute('aria-valuenow', '0');
+    progress.setAttribute('aria-hidden', 'true');
+
+    const bar = document.createElement('div');
+    bar.className = 'reading-progress__bar';
+    progress.append(bar);
+    document.body.prepend(progress);
+
+    const updateProgress = () => {
+        const scrollable = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const percentage = scrollable > 0
+            ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100))
+            : 0;
+
+        bar.style.width = `${percentage}%`;
+        progress.setAttribute('aria-valuenow', String(Math.round(percentage)));
+        progress.setAttribute('aria-hidden', String(scrollable < 2));
+    };
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    window.addEventListener('load', updateProgress);
+    updateProgress();
+}
+
 function initializePageJumpControls() {
     const controls = document.createElement('div');
     controls.className = 'page-jump-controls';
@@ -242,25 +278,32 @@ function initializePageJumpControls() {
     updateVisibility();
 }
 
-const malaRitualNewsStorageKey = 'rommanaree-news-seen-mala-ritual';
+const newsReadStorageKeys = {
+    'mala-ritual': 'rommanaree-news-seen-mala-ritual',
+    loykrathong: 'rommanaree-news-seen-loykrathong'
+};
 
-function hasReadMalaRitualNews() {
+function hasReadNews(newsId) {
     try {
-        return localStorage.getItem(malaRitualNewsStorageKey) === 'true';
+        return localStorage.getItem(newsReadStorageKeys[newsId]) === 'true';
     } catch (error) {
         console.error('Unable to read the news status:', error);
         return false;
     }
 }
 
-function markMalaRitualNewsAsRead() {
+function markNewsAsRead(newsId) {
     try {
-        localStorage.setItem(malaRitualNewsStorageKey, 'true');
+        localStorage.setItem(newsReadStorageKeys[newsId], 'true');
         return true;
     } catch (error) {
         console.error('Unable to save the news status:', error);
         return false;
     }
+}
+
+function hasUnreadNews() {
+    return Object.keys(newsReadStorageKeys).some((newsId) => !hasReadNews(newsId));
 }
 
 function initializeAnnouncementNotification() {
@@ -270,7 +313,7 @@ function initializeAnnouncementNotification() {
     if (!bell || !dot || !notice) return;
 
     function updateDot() {
-        dot.hidden = hasReadMalaRitualNews();
+        dot.hidden = !hasUnreadNews();
     }
 
     function closeNotice() {
@@ -285,14 +328,15 @@ function initializeAnnouncementNotification() {
         bell.setAttribute('aria-expanded', String(opening));
     });
 
-    notice.querySelectorAll('[data-news-link="mala-ritual"]').forEach((link) => {
+    notice.querySelectorAll('[data-news-link]').forEach((link) => {
         link.addEventListener('click', () => {
-            if (markMalaRitualNewsAsRead()) updateDot();
+            const newsId = link.dataset.newsLink;
+            if (markNewsAsRead(newsId)) updateDot();
         });
     });
 
     window.addEventListener('storage', (event) => {
-        if (event.key === malaRitualNewsStorageKey || event.key === null) updateDot();
+        if (Object.values(newsReadStorageKeys).includes(event.key) || event.key === null) updateDot();
     });
 
     document.addEventListener('click', (event) => {
@@ -312,33 +356,32 @@ function initializeAnnouncementNotification() {
 }
 
 function initializeNewsReadIndicator() {
-    const newsCard = document.querySelector('[data-news-id="mala-ritual"]');
-    const isNewsDetail = document.body.dataset.newsDetail === 'mala-ritual';
+    const detailNewsId = document.body.dataset.newsDetail;
+    if (newsReadStorageKeys[detailNewsId]) markNewsAsRead(detailNewsId);
 
-    if (!newsCard && !isNewsDetail) return;
+    const newsCards = [...document.querySelectorAll('[data-news-id]')];
+    if (newsCards.length === 0) return;
 
-    if (isNewsDetail) markMalaRitualNewsAsRead();
-    if (!newsCard) return;
-
-    const indicator = newsCard.querySelector('.news-card__new-indicator');
-    if (!indicator) {
-        console.error('The new-news indicator is missing from the news card.');
-        return;
+    function updateIndicators() {
+        newsCards.forEach((newsCard) => {
+            const newsId = newsCard.dataset.newsId;
+            const indicator = newsCard.querySelector('.news-card__new-indicator');
+            if (indicator) indicator.hidden = hasReadNews(newsId);
+        });
     }
 
-    function updateIndicator() {
-        indicator.hidden = hasReadMalaRitualNews();
-    }
-
-    updateIndicator();
-    newsCard.querySelectorAll('a[href="welcomingactivities.html"]').forEach((link) => {
-        link.addEventListener('click', () => {
-            if (markMalaRitualNewsAsRead()) indicator.hidden = true;
+    updateIndicators();
+    newsCards.forEach((newsCard) => {
+        const newsId = newsCard.dataset.newsId;
+        newsCard.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                if (markNewsAsRead(newsId)) updateIndicators();
+            });
         });
     });
-    window.addEventListener('pageshow', updateIndicator);
+    window.addEventListener('pageshow', updateIndicators);
     window.addEventListener('storage', (event) => {
-        if (event.key === malaRitualNewsStorageKey || event.key === null) updateIndicator();
+        if (Object.values(newsReadStorageKeys).includes(event.key) || event.key === null) updateIndicators();
     });
 }
 

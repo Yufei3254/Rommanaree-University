@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ประเพณีวันลอยกระทง | Rommanaree University</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@600;700&family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body[data-news-detail="loykrathong"] {
+      background:
+        radial-gradient(circle at 12% 18%, rgb(120 201 173 / 18%), transparent 24rem),
+        linear-gradient(180deg, #edf6f3 0%, #f5f7f6 55%, #edf3f1 100%);
+    }
+
+    body[data-news-detail="loykrathong"] .info-page {
+      background: transparent;
+    }
+
+    .loykrathong-article {
+      position: relative;
+      isolation: isolate;
+      border: 1px solid rgb(22 93 90 / 12%);
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgb(8 35 34 / 8%);
+    }
+
+    .loykrathong-article::before {
+      display: none;
+    }
+
+    .loykrathong-article .notice-article__body {
+      max-width: none;
+      margin: 0;
+      padding: clamp(22px, 5vw, 48px);
+    }
+
+    .loykrathong-article .notice-article__organization {
+      display: block;
+      margin: 0 0 10px;
+      padding: 0;
+      background: none;
+      border-radius: 0;
+      font-size: 1.05rem;
+    }
+
+    .loykrathong-article .notice-article__organization::before {
+      display: none;
+    }
+
+    .loykrathong-article h1 {
+      display: block;
+      margin-bottom: 24px;
+      font-size: clamp(1.35rem, 3.5vw, 2rem);
+    }
+
+    .loykrathong-heading-image {
+      display: block;
+      width: 100%;
+      height: clamp(180px, 32vw, 320px);
+      margin: 0 0 24px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 14px;
+    }
+
+    .loykrathong-article h1::after {
+      display: none;
+    }
+
+    .loykrathong-article .loykrathong-lead {
+      margin-bottom: 26px;
+      font-size: 1rem;
+      line-height: 2;
+      text-indent: 2em;
+    }
+
+    .loykrathong-article .loykrathong-lead::first-letter {
+      float: left;
+      margin: 8px 8px 0 0;
+      color: #165d5a;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 3.2em;
+      line-height: .75;
+    }
+
+    .loykrathong-article .notice-article__body > p:not(.notice-article__organization):not(.loykrathong-lead) {
+      margin-bottom: 26px;
+      line-height: 2;
+      text-indent: 2em;
+    }
+
+    .loykrathong-image-wrap {
+      position: relative;
+      display: block;
+      width: min(100%, 360px);
+      margin: 34px auto 0;
+      padding: 0;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgb(22 93 90 / 12%);
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgb(8 35 34 / 12%);
+    }
+
+    .loykrathong-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 0;
+    }
+
+    .loykrathong-actions {
+      display: flex;
+      margin-top: 30px;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .loykrathong-actions .info-home-link {
+      margin: 0;
+    }
+
+    @media (max-width: 480px) {
+      .loykrathong-article {
+        border-radius: 20px;
+      }
+
+      .loykrathong-article .notice-article__body {
+        padding-right: 20px;
+        padding-left: 20px;
+      }
+
+      .loykrathong-image-wrap {
+        width: min(100%, 300px);
+        margin: 28px auto 0;
+        border-radius: 14px;
+      }
+    }
+
+  </style>
+</head>
+<body data-news-detail="loykrathong">
+  <div id="navbar-placeholder"></div>
+  <main class="info-page">
+    <article class="notice-article loykrathong-article">
+      <div class="notice-article__body">
+        <img class="loykrathong-heading-image" src="assets/ร่มนารี/image0.jpg" alt="บรรยากาศประเพณีวันลอยกระทง">
+        <h1>ประเพณีวันลอยกระทง</h1>
+        <p class="loykrathong-lead">ปกติแล้ว หอเทวาลัยกลางสระน้ำบริเวณคณะสถาปัตยกรรม ถือเป็นหนึ่งในสถานที่ที่งดงามติดอันดับต้น ๆ ของมหาวิทยาลัยร่มนารี ซึ่งจะเปิดให้ขึ้นไปชมวิวได้เพียงปีละครั้งในวันจบการศึกษาเท่านั้น แต่ในโอกาสพิเศษนี้ ทางมหาวิทยาลัยได้เปิดให้บุคคลภายนอกเข้าชมฟรี เพื่อร่วมชื่นชมบรรยากาศกระทงเทียนในสระน้ำ</p>
+        <div class="loykrathong-image-wrap">
+          <img class="loykrathong-image" src="assets/ร่มนารี/กระทงเทียน.jpg" alt="กระทงเทียนลอยอยู่ในสระน้ำยามค่ำคืน">
+        </div>
+        <p>ตั้งแต่เวลา 17.00 น. เป็นต้นไป ภายในงานยังอัดแน่นไปด้วยความครึกครื้นจากร้านค้าและร้านอาหารชื่อดังจากภายนอกมหาวิทยาลัย พร้อมด้วยซุ้มเกมปาโป่งและกิจกรรมสนุก ๆ อีกมากมายที่รอต้อนรับทุกท่าน ขอเชิญชวนทุกคนมาร่วมสัมผัสบรรยากาศสุดพิเศษ และขอให้ค่ำคืนนี้เป็นช่วงเวลาแห่งความสุขและความทรงจำที่ดีสำหรับทุกคน</p>
+        <div class="loykrathong-actions">
+          <a class="info-home-link" href="activity.html">← กลับหน้ารวมกิจกรรม</a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <script>
+  </script>
+</body>
+</html>
